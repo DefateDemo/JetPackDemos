@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.dfates.jetpackdemos.common.gotoActivity
 import com.dfates.jetpackdemos.common.ifNotNull
+import com.dfates.jetpackdemos.common.navigate
 import com.dfates.jetpackdemos.databinding.DataBindingActivity
 import com.dfates.jetpackdemos.liveData.LiveDataActivity
 import com.dfates.jetpackdemos.room.RoomActivity
@@ -80,27 +81,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             //Architecture
             R.id.data_binding -> {
-                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
-                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_dataBindingFragment)
-                }
+                navigate(R.id.mainFragment,R.id.action_mainFragment_to_dataBindingFragment)
             }
             R.id.lifecycles -> {
 
             }
             R.id.livedata -> {
-                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
-                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_liveDataFragment)
-                }
+                navigate(R.id.mainFragment,R.id.action_mainFragment_to_liveDataFragment)
             }
             R.id.navigation -> {
-                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
-                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_firstFragment)
-                }
+                navigate(R.id.mainFragment,R.id.action_mainFragment_to_firstFragment)
             }
             R.id.room -> {
-                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
-                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_roomFragment)
-                }
+                navigate(R.id.mainFragment,R.id.action_mainFragment_to_roomFragment)
             }
             R.id.viewModel -> {
 

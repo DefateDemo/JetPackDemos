@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -45,4 +47,10 @@ fun <T : View> T.snackbarShow(text: String) {
 //使用Toast显示
 fun <T : Context> T.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+}
+
+fun <T : AppCompatActivity> T.navigate(id: Int, resId: Int) {
+    supportFragmentManager.findFragmentById(id).ifNotNull { mainFragment ->
+        NavHostFragment.findNavController(mainFragment!!).navigate(resId)
+    }
 }
