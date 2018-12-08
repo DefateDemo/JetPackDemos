@@ -36,3 +36,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
     }
 }
+
+fun <T : Context> T.userDao(): UserDao {
+    return AppDatabase.getAppDatabase(this).userDao()
+}

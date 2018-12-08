@@ -1,21 +1,19 @@
 package com.dfates.jetpackdemos
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.navigation.Navigation
+import com.dfates.jetpackdemos.common.gotoActivity
 import com.dfates.jetpackdemos.databinding.DataBindingActivity
+import com.dfates.jetpackdemos.liveData.LiveDataActivity
+import com.dfates.jetpackdemos.room.RoomActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import com.dfates.jetpackdemos.R
-import com.dfates.jetpackdemos.liveData.LiveDataActivity
-import com.dfates.jetpackdemos.room.RoomActivity
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -79,19 +77,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             //Architecture
             R.id.data_binding -> {
-                startActivity(Intent(this, DataBindingActivity::class.java))
+                gotoActivity(DataBindingActivity::class.java)
             }
             R.id.lifecycles -> {
 
             }
             R.id.livedata -> {
-                startActivity(Intent(this, LiveDataActivity::class.java))
+                gotoActivity(LiveDataActivity::class.java)
             }
             R.id.navigation -> {
 
             }
             R.id.room -> {
-                startActivity(Intent(this, RoomActivity::class.java))
+                gotoActivity(RoomActivity::class.java)
             }
             R.id.viewModel -> {
 

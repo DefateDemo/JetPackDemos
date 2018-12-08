@@ -39,7 +39,7 @@ class LiveDataActivity : AppCompatActivity() {
         mModel.currentName.observe(this, nameObserver)
 
         btnModify.setOnClickListener { v ->
-            mModel.currentName.value = value.toString() + ""
+            mModel.currentName.value = value.toString()
             value++
         }
     }
