@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@layout/fragment_main"
+    app:startDestination="@id/mainFragment"
     android:id="@+id/mobile_navigation">
 
     <fragment
@@ -11,15 +11,55 @@
         android:label="mainFragment"
         tools:layout="@layout/fragment_main" >
         <action
+            android:id="@+id/action_mainFragment_to_firstFragment"
+            app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_liveDataFragment"
+            app:destination="@id/liveDataFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
+        <action
             android:id="@+id/action_mainFragment_to_dataBindingFragment"
             app:destination="@id/dataBindingFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/liveDataFragment"
+        android:name="com.dfates.jetpackdemos.liveData.LiveDataFragment"
+        android:label="liveDataFragment"
+        tools:layout="@layout/fragment_live_data" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="com.dfates.jetpackdemos.room.RoomFragment"
+        android:label="roomFragment"
+        tools:layout="@layout/fragment_room" >
     </fragment>
 
     <fragment
         android:id="@+id/dataBindingFragment"
         android:name="com.dfates.jetpackdemos.databinding.DataBindingFragment"
         android:label="dataBindingFragment"
-        tools:layout="@layout/fragment_databinding" >
+        tools:layout="@layout/fragment_data_binding" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.dfates.jetpackdemos.navigation.FirstFragment"
+        android:label="firstFragment"
+        tools:layout="@layout/fragment_first" >
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.dfates.jetpackdemos.navigation.SecondFragment"
+        android:label="secondFragment"
+        tools:layout="@layout/fragment_second" >
     </fragment>
 
 </navigation>

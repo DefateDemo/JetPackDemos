@@ -1,6 +1,7 @@
 package com.dfates.jetpackdemos.room.database
 
 import android.content.Context
+import androidx.fragment.app.Fragment
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -39,4 +40,8 @@ abstract class AppDatabase : RoomDatabase() {
 
 fun <T : Context> T.userDao(): UserDao {
     return AppDatabase.getAppDatabase(this).userDao()
+}
+
+fun <T : Fragment> T.userDao(): UserDao {
+    return AppDatabase.getAppDatabase(this.context!!).userDao()
 }

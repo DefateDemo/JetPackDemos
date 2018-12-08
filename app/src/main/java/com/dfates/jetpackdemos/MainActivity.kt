@@ -6,7 +6,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.dfates.jetpackdemos.common.gotoActivity
+import com.dfates.jetpackdemos.common.ifNotNull
 import com.dfates.jetpackdemos.databinding.DataBindingActivity
 import com.dfates.jetpackdemos.liveData.LiveDataActivity
 import com.dfates.jetpackdemos.room.RoomActivity
@@ -77,19 +80,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             //Architecture
             R.id.data_binding -> {
-                gotoActivity(DataBindingActivity::class.java)
+                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
+                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_dataBindingFragment)
+                }
             }
             R.id.lifecycles -> {
 
             }
             R.id.livedata -> {
-                gotoActivity(LiveDataActivity::class.java)
+                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
+                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_liveDataFragment)
+                }
             }
             R.id.navigation -> {
-
+                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
+                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_firstFragment)
+                }
             }
             R.id.room -> {
-                gotoActivity(RoomActivity::class.java)
+                supportFragmentManager.findFragmentById(R.id.mainFragment).ifNotNull { mainFragment ->
+                    NavHostFragment.findNavController(mainFragment!!).navigate(R.id.action_mainFragment_to_roomFragment)
+                }
             }
             R.id.viewModel -> {
 
@@ -138,7 +149,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        return Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp()
-//    }
+    override fun onSupportNavigateUp(): Boolean {
+        return Navigation.findNavController(this, R.id.mainFragment).navigateUp()
+    }
 }
