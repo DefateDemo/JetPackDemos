@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import com.dfates.jetpackdemos.R
+import com.dfates.jetpackdemos.liveData.LiveDataActivity
 import com.dfates.jetpackdemos.room.RoomActivity
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.livedata -> {
-
+                startActivity(Intent(this, LiveDataActivity::class.java))
             }
             R.id.navigation -> {
 
