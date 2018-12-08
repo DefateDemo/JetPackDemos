@@ -1,5 +1,6 @@
 package com.dfates.jetpackdemos.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dfates.jetpackdemos.room.entity.User
 
@@ -10,6 +11,9 @@ import com.dfates.jetpackdemos.room.entity.User
 interface UserDao {
     @get:Query("SELECT * FROM user")
     val all: List<User>
+
+    @Query("SELECT * FROM user")
+    fun findAll(): LiveData<List<User>>
 
     @Query("SELECT * FROM user WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<User>
@@ -25,4 +29,5 @@ interface UserDao {
 
     @Delete
     fun delete(user: User)
+
 }
