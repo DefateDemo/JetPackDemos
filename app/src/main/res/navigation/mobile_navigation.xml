@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mobile_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigationFragment">>
 
+    <fragment
+        android:id="@+id/navigationFragment"
+        android:name="com.dfates.jetpackdemos.NavigationFragment"
+        android:label="fragment_navigation" >
+        <action
+            android:id="@+id/action_navigationFragment_to_navigationDetailFragment"
+            app:destination="@id/navigationDetailFragment"
+            app:enterAnim="@anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigationDetailFragment"
+        android:name="com.dfates.jetpackdemos.NavigationDetailFragment"
+        android:label="fragment_navigation_detail"
+        tools:layout="@layout/fragment_navigation_detail" />
 </navigation>
