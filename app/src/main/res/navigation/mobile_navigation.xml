@@ -29,6 +29,9 @@
             android:id="@+id/action_mainFragment_to_dataBindingFragment"
             app:destination="@id/dataBindingFragment" />
         <action
+            android:id="@+id/action_mainFragment_to_lifecycleFragment"
+            app:destination="@id/lifecycleFragment" />
+        <action
             android:id="@+id/action_mainFragment_to_navigationDetailFragment"
             app:destination="@id/navigationDetailFragment"
             app:enterAnim="@anim/slide_in_left" />
@@ -53,6 +56,13 @@
         android:name="com.dfates.jetpackdemos.databinding.DataBindingFragment"
         android:label="dataBindingFragment"
         tools:layout="@layout/fragment_data_binding" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/lifecycleFragment"
+        android:name="com.dfates.jetpackdemos.lifecycle.LifecycleFragment"
+        android:label="lifecycleFragment"
+        tools:layout="@layout/fragment_lifecycle" >
     </fragment>
 
     <fragment

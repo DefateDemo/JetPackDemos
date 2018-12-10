@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.dfates.jetpackdemos.common.gotoActivity
+import com.dfates.jetpackdemos.common.snackbarShow
+import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -64,23 +67,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             //Foundation
             R.id.appCompat -> {
-                // Handle the camera action
+                snackbarShow("Not Found Impl")
             }
             R.id.android_ktx -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.multidex -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.test -> {
-
+                snackbarShow("Not Found Impl")
             }
             //Architecture
             R.id.data_binding -> {
                 navController.navigate(R.id.dataBindingFragment)
             }
             R.id.lifecycles -> {
-
+                gotoActivity(LifecycleActivity::class.java)
+//                navController.navigate(R.id.action_mainFragment_to_lifecycleFragment)
             }
             R.id.livedata -> {
                 navController.navigate(R.id.liveDataFragment)
@@ -95,42 +99,42 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navController.navigate(R.id.liveDataFragment)
             }
             R.id.workManager -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.paging -> {
-
+                snackbarShow("Not Found Impl")
             }
             //UI
             R.id.animations_transitions -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.fragment -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.palette -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.layout -> {
-
+                snackbarShow("Not Found Impl")
             }
             //Behavior
             R.id.download_mananger -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.media_playback -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.permissions -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.notification -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.sharing -> {
-
+                snackbarShow("Not Found Impl")
             }
             R.id.slices -> {
-
+                snackbarShow("Not Found Impl")
             }
         }
 

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 
@@ -44,6 +45,14 @@ fun <T : Context, T2 : Activity> T.gotoActivity(cls: Class<T2>) {
 fun <T : View> T.snackbarShow(text: String) {
     Snackbar.make(this, text, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
+}
+
+//使用Snackbar显示
+fun <T : Activity> T.snackbarShow(text: String) {
+    getCurrentFocus().ifNotNull { view ->
+        Snackbar.make(view!!, text, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+    }
 }
 
 //使用Toast显示
