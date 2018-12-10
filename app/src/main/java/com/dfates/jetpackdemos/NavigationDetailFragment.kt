@@ -46,7 +46,7 @@ class NavigationDetailFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_navigation_detail, container, false)
-        binding.setClickListener { v: View? ->
+        binding.setClickListener {
             Navigation.findNavController(binding.root).popBackStack()
         }
         return binding.root
