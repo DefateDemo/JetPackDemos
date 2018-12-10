@@ -38,7 +38,7 @@ class LiveDataActivity : AppCompatActivity() {
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
         mModel.currentName.observe(this, nameObserver)
 
-        btnModify.setOnClickListener { v ->
+        btnModify.setOnClickListener {
             mModel.currentName.value = value.toString()
             value++
         }
