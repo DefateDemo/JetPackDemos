@@ -20,17 +20,19 @@ fun <T, R> T.next(function: (T) -> R): R {
 }
 
 //当某一对象为空时执行，否则不执行
-fun <T> T.ifNull(consumer: () -> Unit) {
+fun <T> T.ifNull(consumer: () -> Unit): T {
     if (this == null) {
         consumer()
     }
+    return this
 }
 
 //当某一对象不为空时执行，否则不执行
-fun <T> T.ifNotNull(consumer: (T) -> Unit) {
+fun <T> T.ifNotNull(consumer: (T) -> Unit): T {
     if (this != null) {
         consumer(this)
     }
+    return this
 }
 
 //跳转到其他Activity
@@ -47,10 +49,4 @@ fun <T : View> T.snackbarShow(text: String) {
 //使用Toast显示
 fun <T : Context> T.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-}
-
-fun <T : AppCompatActivity> T.navigate(id: Int, resId: Int) {
-    supportFragmentManager.findFragmentById(id).ifNotNull { mainFragment ->
-        NavHostFragment.findNavController(mainFragment!!).navigate(resId)
-    }
 }

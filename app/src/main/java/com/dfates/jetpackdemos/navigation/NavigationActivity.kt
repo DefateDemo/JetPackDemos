@@ -2,6 +2,7 @@ package com.dfates.jetpackdemos.navigation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import com.dfates.jetpackdemos.R
 
 class NavigationActivity : AppCompatActivity() {

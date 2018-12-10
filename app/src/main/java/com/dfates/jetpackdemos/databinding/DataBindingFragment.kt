@@ -19,7 +19,6 @@ class DataBindingFragment : BaseBindingFragment<FragmentDataBindingBinding>() {
 
     fun initView() {
         binding.text1 = "单向绑定"
-
         binding.text2 = ObservableString("双向绑定")
     }
 

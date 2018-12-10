@@ -6,14 +6,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import com.dfates.jetpackdemos.common.gotoActivity
-import com.dfates.jetpackdemos.common.ifNotNull
-import com.dfates.jetpackdemos.common.navigate
-import com.dfates.jetpackdemos.databinding.DataBindingActivity
-import com.dfates.jetpackdemos.liveData.LiveDataActivity
-import com.dfates.jetpackdemos.room.RoomActivity
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,14 +15,15 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            navController.navigate(R.id.mainFragment)
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -37,6 +32,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        navController = Navigation.findNavController(this, R.id.mainFragment)
     }
 
     override fun onBackPressed() {
@@ -81,22 +78,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             //Architecture
             R.id.data_binding -> {
-                navigate(R.id.mainFragment,R.id.action_mainFragment_to_dataBindingFragment)
+                navController.navigate(R.id.dataBindingFragment)
             }
             R.id.lifecycles -> {
 
             }
             R.id.livedata -> {
-                navigate(R.id.mainFragment,R.id.action_mainFragment_to_liveDataFragment)
+                navController.navigate(R.id.liveDataFragment)
             }
             R.id.navigation -> {
-                navigate(R.id.mainFragment,R.id.action_mainFragment_to_firstFragment)
+                navController.navigate(R.id.firstFragment)
             }
             R.id.room -> {
-                navigate(R.id.mainFragment,R.id.action_mainFragment_to_roomFragment)
+                navController.navigate(R.id.roomFragment)
             }
             R.id.viewModel -> {
-
+                navController.navigate(R.id.liveDataFragment)
             }
             R.id.workManager -> {
 
@@ -143,6 +140,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return Navigation.findNavController(this, R.id.mainFragment).navigateUp()
+        return navController.navigateUp()
     }
 }
