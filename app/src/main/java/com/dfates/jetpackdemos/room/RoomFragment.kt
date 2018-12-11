@@ -50,13 +50,13 @@ class RoomFragment : Fragment(), View.OnClickListener {
 
             R.id.btn_read -> {
                 userDao().all.lastOrNull().ifNotNull {
-                    view.snackbarShow(it?.firstName + it?.lastName)
+                    view.snackbarShow(it.firstName + it.lastName)
                 }
             }
 
             R.id.btn_update -> {
                 userDao().findByName("Gong", "Bo").ifNotNull {
-                    it!!.firstName = "123"
+                    it.firstName = "123"
                     it.lastName = "456"
                     userDao().update(it)
                 }
@@ -64,7 +64,7 @@ class RoomFragment : Fragment(), View.OnClickListener {
 
             R.id.btn_delete -> {
                 userDao().all.lastOrNull().ifNotNull {
-                    userDao().delete(it!!)
+                    userDao().delete(it)
                 }
             }
         }

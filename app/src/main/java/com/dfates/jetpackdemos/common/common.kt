@@ -5,9 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -29,7 +26,7 @@ fun <T> T.ifNull(consumer: () -> Unit): T {
 }
 
 //当某一对象不为空时执行，否则不执行
-fun <T> T.ifNotNull(consumer: (T) -> Unit): T {
+fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
     if (this != null) {
         consumer(this)
     }
@@ -50,7 +47,7 @@ fun <T : View> T.snackbarShow(text: String) {
 //使用Snackbar显示
 fun <T : Activity> T.snackbarShow(text: String) {
     getCurrentFocus().ifNotNull { view ->
-        Snackbar.make(view!!, text, Snackbar.LENGTH_LONG)
+        Snackbar.make(view, text, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
     }
 }
