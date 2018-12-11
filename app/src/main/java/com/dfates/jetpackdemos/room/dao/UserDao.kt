@@ -1,33 +1,23 @@
 package com.dfates.jetpackdemos.room.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
+import com.dfates.jetpackdemos.base.BaseDao
 import com.dfates.jetpackdemos.room.entity.User
 
 /**
  * Created by $USER_NAME on 2018/12/8.
  */
 @Dao
-interface UserDao {
-    @get:Query("SELECT * FROM user")
-    val all: List<User>
+interface UserDao : BaseDao<User> {
+    @get:Query("SELECT * FROM t_user")
+    val all: LiveData<List<User>>
 
-    @Query("SELECT * FROM user")
-    fun findAll(): LiveData<List<User>>
+    @Query("SELECT * FROM t_user")
+    fun findAll(): List<User>
 
-    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): List<User>
-
-    @Query("SELECT * FROM user WHERE first_name LIKE :first AND " + "last_name LIKE :last LIMIT 1")
-    fun findByName(first: String, last: String): User?
-
-    @Insert
-    fun insertAll(vararg users: User)
-
-    @Update
-    fun update(user: User)
-
-    @Delete
-    fun delete(user: User)
+    @Query("SELECT * FROM t_user WHERE user_acct = :userAcct")
+    fun findByUserAcct(userAcct: String): User?
 
 }

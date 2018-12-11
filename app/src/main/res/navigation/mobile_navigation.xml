@@ -45,6 +45,13 @@
     </fragment>
 
     <fragment
+        android:id="@+id/viewModelFragment"
+        android:name="com.dfates.jetpackdemos.viewModel.ViewModelFragment"
+        android:label="viewModelFragment"
+        tools:layout="@layout/fragment_view_model" >
+    </fragment>
+
+    <fragment
         android:id="@+id/roomFragment"
         android:name="com.dfates.jetpackdemos.room.RoomFragment"
         android:label="roomFragment"

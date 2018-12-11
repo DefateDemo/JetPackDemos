@@ -13,7 +13,7 @@ import com.dfates.jetpackdemos.room.entity.User
  * Created by $USER_NAME on 2018/12/8.
  */
 
-@Database(entities = arrayOf(User::class), version = 1)
+@Database(entities = [User::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
@@ -27,6 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
                         // allow queries on the main thread.
                         // Don't do this on a real app! See PersistenceBasicSample for an example.
                         .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration()
                         .build()
             }
             return INSTANCE!!

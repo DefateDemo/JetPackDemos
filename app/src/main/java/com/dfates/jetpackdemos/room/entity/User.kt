@@ -7,19 +7,13 @@ import androidx.room.PrimaryKey
 /**
  * Created by $USER_NAME on 2018/12/8.
  */
-@Entity
-class User {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
+@Entity(tableName = "t_user")
+data class User(
+        @PrimaryKey
+        @ColumnInfo(name = "user_acct")
+        var userAcct: String,
 
-    @ColumnInfo(name = "first_name")
-    var firstName: String? = null
+        var age: Int? = 0,
 
-    @ColumnInfo(name = "last_name")
-    var lastName: String? = null
-
-    constructor(firstName: String?, lastName: String?) {
-        this.firstName = firstName
-        this.lastName = lastName
-    }
-}
+        var name: String? = ""
+)

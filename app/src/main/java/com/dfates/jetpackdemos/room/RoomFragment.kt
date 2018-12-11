@@ -33,10 +33,10 @@ class RoomFragment : Fragment(), View.OnClickListener {
         view.findViewById<Button>(R.id.btn_update).setOnClickListener(this)
         view.findViewById<Button>(R.id.btn_delete).setOnClickListener(this)
         tvResult = view.findViewById(R.id.tv_result)
-        userDao().findAll().observe(this, Observer { users ->
+        userDao().all.observe(this, Observer { users ->
             val string = StringBuilder()
             users.forEach {
-                string.append(it.firstName + it.lastName + "\n")
+                string.append(it.toString() + "\n")
             }
             tvResult.text = string
         })
@@ -45,25 +45,24 @@ class RoomFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view!!.id) {
             R.id.btn_insert -> {
-                userDao().insertAll(User("Gong", "Bo"))
+                userDao().insertAll(User("123456"))
             }
 
             R.id.btn_read -> {
-                userDao().all.lastOrNull().ifNotNull {
-                    view.snackbarShow(it.firstName + it.lastName)
+                userDao().findAll().lastOrNull().ifNotNull {
+                    view.snackbarShow(it.toString())
                 }
             }
 
             R.id.btn_update -> {
-                userDao().findByName("Gong", "Bo").ifNotNull {
-                    it.firstName = "123"
-                    it.lastName = "456"
+                userDao().findByUserAcct("123456").ifNotNull {
+                    it.name = "123"
                     userDao().update(it)
                 }
             }
 
             R.id.btn_delete -> {
-                userDao().all.lastOrNull().ifNotNull {
+                userDao().findAll().lastOrNull().ifNotNull {
                     userDao().delete(it)
                 }
             }

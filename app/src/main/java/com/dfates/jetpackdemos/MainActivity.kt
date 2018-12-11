@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navController.navigate(R.id.roomFragment)
             }
             R.id.viewModel -> {
-                navController.navigate(R.id.liveDataFragment)
+                navController.navigate(R.id.viewModelFragment)
             }
             R.id.workManager -> {
                 snackbarShow("Not Found Impl")
