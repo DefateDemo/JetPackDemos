@@ -17,6 +17,13 @@ fun <T, R> T.next(function: (T) -> R): R {
     return function(this)
 }
 
+//不论该对象是否为空都执行,并返回执行结果
+fun <T> T?.next(consumer: (T) -> Unit, nullConsumer: () -> Unit): T? {
+    if (this != null) consumer(this)
+    else nullConsumer()
+    return this
+}
+
 //当某一对象为空时执行，否则不执行
 fun <T> T.ifNull(consumer: () -> Unit): T {
     if (this == null) {
