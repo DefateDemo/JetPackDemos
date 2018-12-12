@@ -15,10 +15,9 @@ import com.dfates.jetpackdemos.common.ifNotNull
 import com.dfates.jetpackdemos.common.snackbarShow
 import com.dfates.jetpackdemos.room.database.userDao
 import com.dfates.jetpackdemos.room.entity.User
+import kotlinx.android.synthetic.main.fragment_room.*
 
 class RoomFragment : Fragment(), View.OnClickListener {
-
-    private lateinit var tvResult: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,17 +27,16 @@ class RoomFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.btn_insert).setOnClickListener(this)
-        view.findViewById<Button>(R.id.btn_read).setOnClickListener(this)
-        view.findViewById<Button>(R.id.btn_update).setOnClickListener(this)
-        view.findViewById<Button>(R.id.btn_delete).setOnClickListener(this)
-        tvResult = view.findViewById(R.id.tv_result)
+        btn_insert.setOnClickListener(this)
+        btn_read.setOnClickListener(this)
+        btn_update.setOnClickListener(this)
+        btn_delete.setOnClickListener(this)
         userDao().all.observe(this, Observer { users ->
             val string = StringBuilder()
             users.forEach {
                 string.append(it.toString() + "\n")
             }
-            tvResult.text = string
+            tv_result.text = string
         })
     }
 
