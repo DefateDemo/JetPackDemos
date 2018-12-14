@@ -1,13 +1,12 @@
 package com.dfates.jetpackdemos
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.dfates.jetpackdemos.base.BaseActivity
 import com.dfates.jetpackdemos.common.gotoActivity
 import com.dfates.jetpackdemos.common.snackbarShow
 import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
@@ -15,27 +14,27 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun initView() {
+        super.initView()
         setSupportActionBar(toolbar)
-
-        fab.setOnClickListener {
-            navController.navigate(R.id.mainFragment)
-        }
-
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
-
         navController = Navigation.findNavController(this, R.id.mainFragment)
+    }
+
+    override fun initListener() {
+        super.initListener()
+        fab.setOnClickListener {
+            navController.navigate(R.id.mainFragment)
+        }
+        nav_view.setNavigationItemSelectedListener(this)
     }
 
     override fun onBackPressed() {
@@ -83,8 +82,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 navController.navigate(R.id.dataBindingFragment)
             }
             R.id.lifecycles -> {
-                gotoActivity(LifecycleActivity::class.java)
-//                navController.navigate(R.id.action_mainFragment_to_lifecycleFragment)
+//                gotoActivity(LifecycleActivity::class.java)
+                navController.navigate(R.id.lifecycleFragment)
             }
             R.id.livedata -> {
                 navController.navigate(R.id.liveDataFragment)

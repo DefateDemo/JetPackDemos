@@ -1,14 +1,8 @@
 package com.dfates.jetpackdemos.navigation
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import com.dfates.jetpackdemos.R
+import com.dfates.jetpackdemos.base.BaseActivity
 
-class NavigationActivity : AppCompatActivity() {
+class NavigationActivity : BaseActivity(R.layout.activity_navigation) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_navigation)
-    }
 }

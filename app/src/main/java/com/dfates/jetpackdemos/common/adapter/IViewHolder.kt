@@ -1,10 +1,9 @@
-package com.dfates.jetpackdemos.base.adapter
+package com.dfates.jetpackdemos.common.adapter
 
 import android.util.SparseArray
 import android.view.View
 import android.widget.TextView
 import androidx.core.util.set
-import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by $USER_NAME on 2018/12/14.
@@ -12,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 interface IViewHolder {
 
-    var convertView: View
+    var itemView: View
 
     val views: SparseArray<View>
 
     fun <T> getView(id: Int): T? {
         var view = views[id]
         if (view == null) {
-            view = convertView.findViewById(id)
+            view = itemView.findViewById(id)
             views[id] = view
         }
         return view as T?
@@ -32,7 +31,6 @@ interface IViewHolder {
 
 }
 
-class ViewHolder(override var convertView: View, override val views: SparseArray<View> = SparseArray()) : IViewHolder
 
 
-class RecycleViewHolder(override var convertView: View, override val views: SparseArray<View> = SparseArray()) : RecyclerView.ViewHolder(convertView), IViewHolder
+

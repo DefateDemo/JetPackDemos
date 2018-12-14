@@ -6,19 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 
 /**
  * Created by $USER_NAME on 2018/12/8.
  */
-abstract class BaseBindingFragment<VB : ViewDataBinding> : Fragment() {
+abstract class BaseBindingFragment<VB : ViewDataBinding>(layoutId: Int) : BaseFragment(layoutId) {
 
     protected lateinit var binding: VB
 
-    protected abstract fun getLayoutId(): Int
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         return binding.root
     }
 

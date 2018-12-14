@@ -2,19 +2,15 @@ package com.dfates.jetpackdemos.lifecycle
 
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.dfates.jetpackdemos.R
+import com.dfates.jetpackdemos.base.BaseFragment
 
 
-class LifecycleFragment : Fragment() {
+class LifecycleFragment : BaseFragment(R.layout.fragment_lifecycle) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
         lifecycle.addObserver(TestLifecycleObserver(context))
-        return inflater.inflate(R.layout.fragment_lifecycle, container, false)
+        super.onCreate(savedInstanceState)
     }
 
 }

@@ -1,13 +1,12 @@
 package com.dfates.jetpackdemos
 
-import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.dfates.jetpackdemos.databinding.FragmentNavigationDetailBinding
 
@@ -45,7 +44,7 @@ class NavigationDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_navigation_detail, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_navigation_detail, container, false)
         binding.setClickListener {
             Navigation.findNavController(binding.root).popBackStack()
         }

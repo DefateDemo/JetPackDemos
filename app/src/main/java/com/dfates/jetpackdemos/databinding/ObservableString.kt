@@ -7,5 +7,4 @@ import androidx.databinding.ObservableField
  */
 
 class ObservableString(value: String? = "") : ObservableField<String>(value) {
-//    constructor() : this(null)
 }

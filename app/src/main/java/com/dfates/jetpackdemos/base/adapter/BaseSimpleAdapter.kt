@@ -1,7 +1,6 @@
 package com.dfates.jetpackdemos.base.adapter
 
 import android.content.Context
-import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -12,6 +11,9 @@ import android.widget.ListView
  */
 abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, val layoutId: Int, var mDatas: List<M?>?) : BaseAdapter() {
 
+    /**
+     * 更新数据集
+     */
     fun update(datas: List<M?>?) {
         mDatas = datas
         notifyDataSetChanged()
@@ -67,20 +69,7 @@ abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, val layoutId: Int
 }
 
 
-/**
- * ListView,GridView简洁适配器，使用传入闭包处理的方式实现
- */
-class CommonAdapter<M>(mContext: Context, layoutId: Int, mDatas: List<M?>?, var convert: (holder: ViewHolder, data: M?, position: Int) -> Unit) : BaseSimpleAdapter<M, ViewHolder>(mContext, layoutId, mDatas) {
 
-    override fun setView(convertView: View, holder: ViewHolder, data: M?, position: Int) {
-        convert.invoke(holder, data, position)
-    }
-
-    override fun getViewHolder(convertView: View?): ViewHolder {
-        return ViewHolder(convertView!!)
-    }
-
-}
 
 
 

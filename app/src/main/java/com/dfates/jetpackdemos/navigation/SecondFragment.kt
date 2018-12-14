@@ -1,27 +1,15 @@
 package com.dfates.jetpackdemos.navigation
 
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.dfates.jetpackdemos.R
+import com.dfates.jetpackdemos.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_second.*
 
-class SecondFragment : Fragment() {
+class SecondFragment : BaseFragment(R.layout.fragment_second) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second, container, false)
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initListener() {
+        super.initListener()
         btn_back.setOnClickListener { v ->
             Navigation.findNavController(v).navigateUp()
         }

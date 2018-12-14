@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.util.isEmpty
 import androidx.core.util.set
 import androidx.recyclerview.widget.RecyclerView
+import com.dfates.jetpackdemos.common.adapter.RecycleViewHolder
 
 /**
  * RecycleView通用适配器，需要继承实现
@@ -16,10 +17,19 @@ abstract class BaseRecycleViewAdapter<M>(val mContext: Context, var layoutIds: S
 
     protected var mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
-    constructor(mContext: Context, layoutIds: Array<Pair<Int, Int>>, mDatas: List<M?>?) : this(mContext, layoutIds.toSparseArray(), mDatas)
+    /**
+     * 使用arrayOf(viewType to layoutId,...) 的形式传入多个布局
+     */
+    constructor(mContext: Context, layoutIds: Array<Pair<Int, Int>>, mDatas: List<M?>?) : this(mContext, layoutIds.toSparseIntArray(), mDatas)
 
+    /**
+     * 传入单个布局
+     */
     constructor(mContext: Context, layoutId: Int, mDatas: List<M?>?) : this(mContext, arrayOf(0 to layoutId), mDatas)
 
+    /**
+     * 更新数据集
+     */
     fun update(datas: List<M?>?) {
         mDatas = datas
         notifyDataSetChanged()
@@ -43,22 +53,7 @@ abstract class BaseRecycleViewAdapter<M>(val mContext: Context, var layoutIds: S
     abstract fun onBindViewHolder(holder: RecycleViewHolder, data: M?, position: Int, viewType: Int)
 }
 
-/**
- * RecycleView简洁适配器，，使用传入闭包处理的方式实现
- */
-class CommonRecycleViewAdapter<M>(mContext: Context, layoutIds: SparseIntArray?, mDatas: List<M?>?, var convert: ((RecycleViewHolder, M?, position: Int, viewType: Int) -> Unit)?) : BaseRecycleViewAdapter<M>(mContext, layoutIds, mDatas) {
-
-    constructor(mContext: Context, layoutIds: Array<Pair<Int, Int>>, mDatas: List<M?>?, convert: ((RecycleViewHolder, M?, position: Int, viewType: Int) -> Unit)?) : this(mContext, layoutIds.toSparseArray(), mDatas, convert)
-
-    constructor(mContext: Context, layoutId: Int, mDatas: List<M?>?, convert: ((RecycleViewHolder, M?, position: Int, viewType: Int) -> Unit)?) : this(mContext, arrayOf(0 to layoutId), mDatas, convert)
-
-    override fun onBindViewHolder(holder: RecycleViewHolder, data: M?, position: Int, viewType: Int) {
-        convert?.invoke(holder, data, position, viewType)
-    }
-
-}
-
-fun Array<Pair<Int, Int>>.toSparseArray(): SparseIntArray {
+fun Array<Pair<Int, Int>>.toSparseIntArray(): SparseIntArray {
     val sparseArray = SparseIntArray()
     this.forEach {
         sparseArray[it.first] = it.second
