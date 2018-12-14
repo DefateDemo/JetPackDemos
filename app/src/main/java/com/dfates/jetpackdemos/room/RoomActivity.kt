@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.dfates.jetpackdemos.R
+import com.dfates.jetpackdemos.base.adapter.CommonAdapter
 import com.dfates.jetpackdemos.common.ifNotNull
 import com.dfates.jetpackdemos.common.snackbarShow
 import com.dfates.jetpackdemos.room.database.userDao
@@ -13,6 +14,7 @@ import com.dfates.jetpackdemos.room.entity.User
 import kotlinx.android.synthetic.main.activity_room.*
 
 class RoomActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var adapter: CommonAdapter<User>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,19 +23,21 @@ class RoomActivity : AppCompatActivity(), View.OnClickListener {
         btn_read.setOnClickListener(this)
         btn_update.setOnClickListener(this)
         btn_delete.setOnClickListener(this)
-        userDao().all.observe(this, Observer { users ->
-            val string = StringBuilder()
-            users.forEach {
-                string.append(it.toString() + "\n")
-            }
-            tv_result.text = string
+
+        adapter = CommonAdapter<User>(this, R.layout.layout_list_item, null) { holder, data, _ ->
+            holder.getView<TextView>(R.id.tv_text)?.text = data.toString()
+        }
+        list_view.adapter = adapter
+
+        userDao().all.observe(this, Observer<List<User>> { users ->
+            adapter.update(users)
         })
     }
 
     override fun onClick(view: View?) {
         when (view!!.id) {
             R.id.btn_insert -> {
-                userDao().insertAll(User("123456"))
+                userDao().insertAll(User(null, 0, "123456"))
             }
 
             R.id.btn_read -> {
@@ -43,8 +47,8 @@ class RoomActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_update -> {
-                userDao().findByUserAcct("123456").ifNotNull {
-                    it.name = "123"
+                userDao().findByName("123456")?.forEach {
+                    it.age++
                     userDao().update(it)
                 }
             }

@@ -8,9 +8,7 @@ import com.dfates.jetpackdemos.base.BaseBindingFragment
 
 class DataBindingFragment : BaseBindingFragment<FragmentDataBindingBinding>() {
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_data_binding
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_data_binding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

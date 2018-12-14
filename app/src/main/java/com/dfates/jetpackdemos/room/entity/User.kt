@@ -1,6 +1,5 @@
 package com.dfates.jetpackdemos.room.entity
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,10 +9,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "t_user")
 data class User(
         @PrimaryKey
-        @ColumnInfo(name = "user_acct")
-        var userAcct: String,
+        var id: Int? = null,
 
-        var age: Int? = 0,
+        var age: Int = 0,
 
         var name: String? = ""
 )

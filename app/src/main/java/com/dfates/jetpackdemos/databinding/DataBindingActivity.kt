@@ -6,9 +6,7 @@ import com.dfates.jetpackdemos.base.BaseBindingActivity
 
 class DataBindingActivity : BaseBindingActivity<ActivityDataBindingBinding>() {
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_data_binding
-    }
+    override fun getLayoutId(): Int = R.layout.activity_data_binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

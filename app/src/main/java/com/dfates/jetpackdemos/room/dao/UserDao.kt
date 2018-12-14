@@ -17,7 +17,10 @@ interface UserDao : BaseDao<User> {
     @Query("SELECT * FROM t_user")
     fun findAll(): List<User>
 
-    @Query("SELECT * FROM t_user WHERE user_acct = :userAcct")
-    fun findByUserAcct(userAcct: String): User?
+    @Query("SELECT * FROM t_user WHERE id = :id")
+    fun findById(id: Int): User?
+
+    @Query("SELECT * FROM t_user WHERE name = :name")
+    fun findByName(name: String): List<User>?
 
 }
