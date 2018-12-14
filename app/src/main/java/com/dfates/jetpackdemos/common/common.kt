@@ -3,11 +3,14 @@ package com.dfates.jetpackdemos.common
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.SparseIntArray
 import android.view.View
 import android.widget.Toast
-import androidx.core.util.set
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
+import kotlin.reflect.KClass
 
 
 /**
@@ -64,4 +67,14 @@ fun <T : Activity> T.snackbarShow(text: String) {
 //使用Toast显示
 fun <T : Context> T.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+}
+
+//获取ViewModel
+fun <T : Fragment, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
+    return ViewModelProviders.of(this).get(clazz.java)
+}
+
+//获取ViewModel
+fun <T : FragmentActivity, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
+    return ViewModelProviders.of(this).get(clazz.java)
 }

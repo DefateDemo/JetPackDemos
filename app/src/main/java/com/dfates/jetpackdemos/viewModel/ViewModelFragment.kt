@@ -2,9 +2,9 @@ package com.dfates.jetpackdemos.viewModel
 
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
+import com.dfates.jetpackdemos.common.getViewModel
 import kotlinx.android.synthetic.main.fragment_view_model.*
 
 class ViewModelFragment : BaseFragment(R.layout.fragment_view_model) {
@@ -15,7 +15,7 @@ class ViewModelFragment : BaseFragment(R.layout.fragment_view_model) {
 
     override fun initData() {
         super.initData()
-        mModel = ViewModelProviders.of(this).get(NameViewModel::class.java)
+        mModel = getViewModel(NameViewModel::class)
         val nameObserver = Observer<String> { newName ->
             // Update the UI, in this case, a TextView.
             tv_text.text = newName
