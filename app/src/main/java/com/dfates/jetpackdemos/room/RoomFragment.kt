@@ -25,8 +25,8 @@ class RoomFragment : BaseFragment(R.layout.fragment_room), View.OnClickListener 
         btn_delete.setOnClickListener(this)
     }
 
-    override fun initView(view: View) {
-        super.initView(view)
+    override fun initView() {
+        super.initView()
         adapter = CommonAdapter<User>(context!!, R.layout.layout_list_item, null) { holder, data, _ ->
             holder.getView<TextView>(R.id.tv_text)?.text = data.toString()
         }

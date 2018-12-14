@@ -15,8 +15,8 @@ class LiveDataFragment : BaseFragment(R.layout.fragment_liva_data) {
 
     private lateinit var adapter: CommonRecycleViewAdapter<User>
 
-    override fun initView(view: View) {
-        super.initView(view)
+    override fun initView() {
+        super.initView()
 
         adapter = CommonRecycleViewAdapter(context!!, R.layout.layout_list_item, null) { holder, data, _, _ ->
             //            holder.getView<TextView>(R.id.tv_text)?.text = data.toString()

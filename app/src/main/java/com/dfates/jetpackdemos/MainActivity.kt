@@ -7,8 +7,11 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.dfates.jetpackdemos.base.BaseActivity
+import com.dfates.jetpackdemos.base.Priority
+import com.dfates.jetpackdemos.base.RunPriority
 import com.dfates.jetpackdemos.common.gotoActivity
 import com.dfates.jetpackdemos.common.snackbarShow
+import com.dfates.jetpackdemos.common.toastShow
 import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,6 +21,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
 
     private lateinit var navController: NavController
 
+    @RunPriority(Priority.HIGH)
     override fun initView() {
         super.initView()
         setSupportActionBar(toolbar)
@@ -29,12 +33,19 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
         navController = Navigation.findNavController(this, R.id.mainFragment)
     }
 
+    @RunPriority(Priority.NORMAL)
     override fun initListener() {
         super.initListener()
         fab.setOnClickListener {
             navController.navigate(R.id.mainFragment)
         }
         nav_view.setNavigationItemSelectedListener(this)
+
+    }
+
+    @RunPriority(Priority.LOW)
+    override fun initData() {
+        super.initData()
     }
 
     override fun onBackPressed() {
@@ -82,8 +93,8 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
                 navController.navigate(R.id.dataBindingFragment)
             }
             R.id.lifecycles -> {
-//                gotoActivity(LifecycleActivity::class.java)
-                navController.navigate(R.id.lifecycleFragment)
+                gotoActivity(LifecycleActivity::class.java)
+//                navController.navigate(R.id.lifecycleFragment)
             }
             R.id.livedata -> {
                 navController.navigate(R.id.liveDataFragment)
