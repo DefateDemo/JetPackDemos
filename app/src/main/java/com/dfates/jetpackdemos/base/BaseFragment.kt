@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
 /**
- * Created by $USER_NAME on 2018/12/12.
+ * 基本Fragment，实现了IViewInit接口，可以继承initView，initListener，initData方法，使用这些方法时可以使用RunPriority注解声明方法执行顺序
  */
 abstract class BaseFragment(val layoutId: Int) : Fragment(), IViewInit {
 
