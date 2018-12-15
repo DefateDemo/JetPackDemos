@@ -35,13 +35,17 @@
             android:id="@+id/action_mainFragment_to_navigationDetailFragment"
             app:destination="@id/navigationDetailFragment"
             app:enterAnim="@anim/slide_in_left" />
+        <action
+            android:id="@+id/action_mainFragment_to_retrofitFragment"
+            app:destination="@id/retrofitFragment"
+            app:enterAnim="@anim/slide_in_left" />
     </fragment>
 
     <fragment
         android:id="@+id/liveDataFragment"
         android:name="com.dfates.jetpackdemos.liveData.LiveDataFragment"
         android:label="liveDataFragment"
-        tools:layout="@layout/fragment_live_data" >
+        tools:layout="@layout/fragment_liva_data" >
     </fragment>
 
     <fragment
@@ -88,5 +92,10 @@
         android:label="secondFragment"
         tools:layout="@layout/fragment_second" >
     </fragment>
+    <fragment
+        android:id="@+id/retrofitFragment"
+        android:name="com.dfates.jetpackdemos.net.RetrofitFragment"
+        android:label="fragment_retrofit"
+        tools:layout="@layout/fragment_retrofit" />
 
 </navigation>

@@ -114,4 +114,13 @@
         </menu>
     </item>
 
+    <item android:title="ThirdParty">
+        <menu>
+            <item
+                android:id="@+id/retrofit"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Retrofit" />
+        </menu>
+    </item>
+
 </menu>

@@ -21,6 +21,7 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
 
     private lateinit var navController: NavController
 
+
     @RunPriority(Priority.HIGH)
     override fun initView() {
         super.initView()
@@ -145,6 +146,10 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
             }
             R.id.slices -> {
                 snackbarShow("Not Found Impl")
+            }
+
+            R.id.retrofit -> {
+                navController.navigate(R.id.retrofitFragment)
             }
         }
 

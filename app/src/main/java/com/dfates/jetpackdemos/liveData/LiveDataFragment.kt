@@ -23,6 +23,8 @@ class LiveDataFragment : BaseFragment(R.layout.fragment_liva_data) {
             holder.setText(R.id.tv_text, data.toString())
         }
 
+
+
         recycler_view.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recycler_view.adapter = adapter
     }

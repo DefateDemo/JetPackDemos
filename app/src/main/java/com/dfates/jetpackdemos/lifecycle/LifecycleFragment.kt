@@ -13,4 +13,5 @@ class LifecycleFragment : BaseFragment(R.layout.fragment_lifecycle) {
         super.onCreate(savedInstanceState)
     }
 
+
 }
