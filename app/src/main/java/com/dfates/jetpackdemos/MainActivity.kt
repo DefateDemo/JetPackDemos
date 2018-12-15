@@ -1,5 +1,6 @@
 package com.dfates.jetpackdemos
 
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -7,11 +8,11 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.dfates.jetpackdemos.base.BaseActivity
-import com.dfates.jetpackdemos.base.Priority
-import com.dfates.jetpackdemos.base.RunPriority
+import com.dfates.jetpackdemos.bindTest.BindTestActivity
 import com.dfates.jetpackdemos.common.gotoActivity
+import com.dfates.jetpackdemos.common.runPriority.Priority
+import com.dfates.jetpackdemos.common.runPriority.RunPriority
 import com.dfates.jetpackdemos.common.snackbarShow
-import com.dfates.jetpackdemos.common.toastShow
 import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -90,12 +91,18 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
                 snackbarShow("Not Found Impl")
             }
             //Architecture
+            R.id.bind_test -> {
+                val bundle = Bundle()
+                bundle.putInt("value", 11)
+//                gotoActivity(BindTestActivity::class.java,bundle)
+                navController.navigate(R.id.bindTestFragment, bundle)
+            }
             R.id.data_binding -> {
                 navController.navigate(R.id.dataBindingFragment)
             }
             R.id.lifecycles -> {
-                gotoActivity(LifecycleActivity::class.java)
-//                navController.navigate(R.id.lifecycleFragment)
+//                gotoActivity(LifecycleActivity::class.java)
+                navController.navigate(R.id.lifecycleFragment)
             }
             R.id.livedata -> {
                 navController.navigate(R.id.liveDataFragment)

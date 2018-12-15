@@ -42,6 +42,13 @@
     </fragment>
 
     <fragment
+        android:id="@+id/bindTestFragment"
+        android:name="com.dfates.jetpackdemos.bindTest.BindTestFragment"
+        android:label="bindTestFragment"
+        tools:layout="@layout/fragment_bind_test" >
+    </fragment>
+
+    <fragment
         android:id="@+id/liveDataFragment"
         android:name="com.dfates.jetpackdemos.liveData.LiveDataFragment"
         android:label="liveDataFragment"

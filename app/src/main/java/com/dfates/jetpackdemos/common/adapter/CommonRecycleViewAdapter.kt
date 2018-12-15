@@ -6,12 +6,12 @@ import android.util.SparseIntArray
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dfates.jetpackdemos.base.adapter.BaseRecycleViewAdapter
-import com.dfates.jetpackdemos.base.adapter.toSparseIntArray
+import com.dfates.jetpackdemos.common.toSparseIntArray
 
 /**
  * RecycleView简洁适配器，，使用传入闭包处理的方式实现
  */
-class CommonRecycleViewAdapter<M>(mContext: Context, layoutIds: SparseIntArray?, mDatas: List<M?>?, var convert: ((RecycleViewHolder, M?, position: Int, viewType: Int) -> Unit)?) : BaseRecycleViewAdapter<M>(mContext, layoutIds, mDatas) {
+open class CommonRecycleViewAdapter<M>(mContext: Context, layoutIds: SparseIntArray?, mDatas: List<M?>?, var convert: ((RecycleViewHolder, M?, position: Int, viewType: Int) -> Unit)?) : BaseRecycleViewAdapter<M>(mContext, layoutIds, mDatas) {
     /**
      * 使用arrayOf(viewType to layoutId,...) 的形式传入多个布局
      */

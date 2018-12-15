@@ -3,8 +3,11 @@ package com.dfates.jetpackdemos.common
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.util.SparseIntArray
 import android.view.View
 import android.widget.Toast
+import androidx.core.util.set
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
@@ -46,8 +49,10 @@ fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
 }
 
 //跳转到其他Activity
-fun <T : Context, T2 : Activity> T.gotoActivity(cls: Class<T2>) {
-    startActivity(Intent(this, cls))
+fun <T : Context, T2 : Activity> T.gotoActivity(cls: Class<T2>, bundle: Bundle? = null) {
+    val intent = Intent(this, cls)
+    bundle.ifNotNull { intent.putExtras(it) }
+    startActivity(intent)
 }
 
 //使用Snackbar显示
@@ -77,4 +82,18 @@ fun <T : Fragment, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
 //获取ViewModel
 fun <T : FragmentActivity, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
     return ViewModelProviders.of(this).get(clazz.java)
+}
+
+//fragment根据id获取view对象
+fun <T : Fragment, R : View?> T.findViewById(id: Int): R? {
+    return view?.findViewById<R>(id)
+}
+
+//转化
+fun Array<Pair<Int, Int>>.toSparseIntArray(): SparseIntArray {
+    val sparseArray = SparseIntArray()
+    this.forEach {
+        sparseArray[it.first] = it.second
+    }
+    return sparseArray
 }
