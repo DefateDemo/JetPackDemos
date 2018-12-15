@@ -1,15 +1,27 @@
 package com.dfates.jetpackdemos.base.adapter
 
 import android.content.Context
+import android.util.SparseIntArray
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
+import com.dfates.jetpackdemos.common.toSparseIntArray
 
 /**
  * ListView,GridView通用适配器，使用继承的方式实现
  */
-abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, val layoutId: Int, var mDatas: List<M?>?) : BaseAdapter() {
+abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, var layoutIds: SparseIntArray?, var mDatas: List<M?>?) : BaseAdapter() {
+
+    /**
+     * 使用arrayOf(viewType to layoutId,...) 的形式传入多个布局
+     */
+    constructor(mContext: Context, layoutIds: Array<Pair<Int, Int>>, mDatas: List<M?>?) : this(mContext, layoutIds.toSparseIntArray(), mDatas)
+
+    /**
+     * 传入单个布局
+     */
+    constructor(mContext: Context, layoutId: Int, mDatas: List<M?>?) : this(mContext, arrayOf(0 to layoutId), mDatas)
 
     /**
      * 更新数据集
@@ -23,7 +35,7 @@ abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, val layoutId: Int
         var convertView = convertView
         val mHolder: VH
         if (convertView == null) {
-            convertView = View.inflate(mContext, layoutId, null)
+            convertView = View.inflate(mContext, layoutIds!![getItemViewType(position)], null)
             mHolder = getViewHolder(convertView)
             convertView!!.tag = mHolder
         } else {
@@ -44,6 +56,8 @@ abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, val layoutId: Int
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getCount(): Int = if (mDatas == null) 0 else mDatas!!.size
+
+    override fun getItemViewType(position: Int): Int = 0
 
     /**
      * 局部更新数据，调用一次getView()方法；Google推荐的做法

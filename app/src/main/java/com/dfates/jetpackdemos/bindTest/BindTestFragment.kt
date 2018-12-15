@@ -1,25 +1,38 @@
-package com.dfates.jetpackdemos.viewModel
+package com.dfates.jetpackdemos.bindTest
 
 
+import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
+import com.dfates.jetpackdemos.common.bindView.BindView
+import com.dfates.jetpackdemos.common.param.BindParam
 import com.dfates.jetpackdemos.common.viewModel.BindViewModel
-import kotlinx.android.synthetic.main.fragment_view_model.*
+import com.dfates.jetpackdemos.viewModel.NameViewModel
 
-class ViewModelFragment : BaseFragment(R.layout.fragment_view_model) {
+class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
 
+    //绑定ViewModel
     @BindViewModel
     private lateinit var mModel: NameViewModel
 
-    private var value = 1
+    //绑定视图
+    @BindView(R.id.tv_text)
+    private lateinit var tvText: TextView
+
+    @BindView(R.id.btn_modify)
+    private lateinit var btnModify: Button
+
+    //绑定参数
+    @BindParam("value")
+    private var value: Int = 0
 
     override fun initData() {
         super.initData()
-//        mModel = getViewModel(NameViewModel::class)
         val nameObserver = Observer<String> { newName ->
             // Update the UI, in this case, a TextView.
-            tv_text.text = newName
+            tvText.text = newName
         }
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
@@ -28,11 +41,10 @@ class ViewModelFragment : BaseFragment(R.layout.fragment_view_model) {
 
     override fun initListener() {
         super.initListener()
-        btn_modify.setOnClickListener { v ->
+        btnModify.setOnClickListener { v ->
             mModel.currentName.value = value.toString()
             value++
         }
     }
 
 }
-

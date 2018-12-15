@@ -5,9 +5,9 @@ import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.util.isEmpty
-import androidx.core.util.set
 import androidx.recyclerview.widget.RecyclerView
 import com.dfates.jetpackdemos.common.adapter.RecycleViewHolder
+import com.dfates.jetpackdemos.common.toSparseIntArray
 
 /**
  * RecycleView通用适配器，需要继承实现
@@ -42,6 +42,8 @@ abstract class BaseRecycleViewAdapter<M>(val mContext: Context, var layoutIds: S
 
     override fun getItemCount(): Int = if (mDatas == null || layoutIds == null || layoutIds!!.isEmpty()) 0 else mDatas!!.size
 
+    override fun getItemViewType(position: Int): Int = 0
+
     override fun onBindViewHolder(holder: RecycleViewHolder, position: Int) {
         onBindViewHolder(holder, mDatas?.get(position), position, getItemViewType(position))
     }
@@ -53,11 +55,4 @@ abstract class BaseRecycleViewAdapter<M>(val mContext: Context, var layoutIds: S
     abstract fun onBindViewHolder(holder: RecycleViewHolder, data: M?, position: Int, viewType: Int)
 }
 
-fun Array<Pair<Int, Int>>.toSparseIntArray(): SparseIntArray {
-    val sparseArray = SparseIntArray()
-    this.forEach {
-        sparseArray[it.first] = it.second
-    }
-    return sparseArray
-}
 

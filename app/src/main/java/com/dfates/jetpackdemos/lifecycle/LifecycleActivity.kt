@@ -2,8 +2,8 @@ package com.dfates.jetpackdemos.lifecycle
 
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseActivity
-import com.dfates.jetpackdemos.base.Priority
-import com.dfates.jetpackdemos.base.RunPriority
+import com.dfates.jetpackdemos.common.runPriority.Priority
+import com.dfates.jetpackdemos.common.runPriority.RunPriority
 
 class LifecycleActivity : BaseActivity(R.layout.activity_lifecycle) {
 

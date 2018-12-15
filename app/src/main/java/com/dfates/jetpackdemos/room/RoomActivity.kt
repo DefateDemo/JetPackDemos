@@ -25,7 +25,7 @@ class RoomActivity : BaseActivity(R.layout.activity_room), View.OnClickListener 
 
     override fun initView() {
         super.initView()
-        adapter = CommonAdapter<User>(this, R.layout.layout_list_item, null) { holder, data, _ ->
+        adapter = CommonAdapter(this, R.layout.layout_list_item, null) { holder, data, _ ->
             holder.getView<TextView>(R.id.tv_text)?.text = data.toString()
         }
         list_view.adapter = adapter
