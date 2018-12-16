@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.net
+package com.dfates.jetpackdemos.net.api
 
 import com.dfates.jetpackdemos.BuildConfig
 import okhttp3.OkHttpClient

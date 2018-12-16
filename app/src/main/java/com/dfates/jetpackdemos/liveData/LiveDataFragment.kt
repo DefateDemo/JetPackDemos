@@ -1,6 +1,7 @@
 package com.dfates.jetpackdemos.liveData
 
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ListView
 import android.widget.TextView
@@ -21,6 +22,7 @@ class LiveDataFragment : BaseFragment(R.layout.fragment_live_data) {
     @BindView(R.id.empty_view)
     private lateinit var emptyView: View
 
+    @SuppressLint("WrongConstant")
     override fun initView() {
         super.initView()
 

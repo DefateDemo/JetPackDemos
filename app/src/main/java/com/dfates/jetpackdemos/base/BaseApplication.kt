@@ -1,7 +1,7 @@
 package com.dfates.jetpackdemos.base
 
 import android.app.Application
-import com.dfates.jetpackdemos.net.ApiClient
+import com.dfates.jetpackdemos.net.api.ApiClient
 
 class BaseApplication : Application() {
 

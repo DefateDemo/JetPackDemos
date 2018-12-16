@@ -2,6 +2,7 @@ package com.dfates.jetpackdemos.common.adapter
 
 import android.util.SparseArray
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.util.set
 
@@ -28,7 +29,6 @@ interface IViewHolder {
         getView<TextView>(id)?.text = text
         return this
     }
-
 }
 
 

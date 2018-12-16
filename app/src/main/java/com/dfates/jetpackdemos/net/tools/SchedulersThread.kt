@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.net
+package com.dfates.jetpackdemos.net.tools
 
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
