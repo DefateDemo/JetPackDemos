@@ -1,7 +1,6 @@
 package com.dfates.jetpackdemos.bindTest
 
 
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -45,7 +44,7 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
         mModel.currentName.observe(this, nameObserver)
     }
 
-    fun onClick(view: View){
+    fun onClick() {
         value++
         mModel.currentName.value = value.toString()
     }

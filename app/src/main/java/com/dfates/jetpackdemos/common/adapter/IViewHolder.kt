@@ -16,6 +16,7 @@ interface IViewHolder {
 
     val views: SparseArray<View>
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> getView(id: Int): T? {
         var view = views[id]
         if (view == null) {

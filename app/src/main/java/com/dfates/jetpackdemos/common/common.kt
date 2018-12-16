@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import kotlin.reflect.KClass
 
 
 /**
@@ -21,26 +20,26 @@ import kotlin.reflect.KClass
  */
 
 //不论该对象是否为空都执行,并返回执行结果
-public inline fun <T, R> T.next(function: (T) -> R): R {
+inline fun <T, R> T.next(function: (T) -> R): R {
     return function(this)
 }
 
 //不论该对象是否为空都执行,并返回执行结果
-public inline fun <T> T?.next(nullConsumer: () -> Unit, consumer: (T) -> Unit): T? {
+inline fun <T> T?.next(nullConsumer: () -> Unit, consumer: (T) -> Unit): T? {
     if (this != null) consumer(this)
     else nullConsumer()
     return this
 }
 
 //该对象为空抛异常,否则执行并返回结果
-public inline fun <T> T?.next(e: Exception, consumer: (T) -> Unit): T? {
+inline fun <T> T?.next(e: Exception, consumer: (T) -> Unit): T? {
     if (this != null) consumer(this)
     else throw e
     return this
 }
 
 //当某一对象为空时执行，否则不执行
-public inline fun <T> T.ifNull(consumer: () -> Unit): T {
+inline fun <T> T.ifNull(consumer: () -> Unit): T {
     if (this == null) {
         consumer()
     }
@@ -56,36 +55,36 @@ public inline fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
 }
 
 //为真时执行闭包，否则不执行
-public inline fun Boolean?.ifTrue(consumer: () -> Unit) : Boolean?{
-    if(this != null && this){
+inline fun Boolean?.ifTrue(consumer: () -> Unit): Boolean? {
+    if (this != null && this) {
         consumer()
     }
     return this
 }
 
 //为假时执行闭包，否则不执行
-public inline fun Boolean?.ifFalse(consumer: () -> Unit) : Boolean?{
-    if(this != null && !this){
+inline fun Boolean?.ifFalse(consumer: () -> Unit): Boolean? {
+    if (this != null && !this) {
         consumer()
     }
     return this
 }
 
 //跳转到其他Activity
-public inline fun <T : Context, T2 : Activity> T.gotoActivity(cls: Class<T2>, bundle: Bundle? = null) {
+fun <T : Context, T2 : Activity> T.gotoActivity(cls: Class<T2>, bundle: Bundle? = null) {
     val intent = Intent(this, cls)
     bundle.ifNotNull { intent.putExtras(it) }
     startActivity(intent)
 }
 
 //使用Snackbar显示
-public inline fun <T : View> T.snackbarShow(text: String) {
+fun <T : View> T.snackbarShow(text: String) {
     Snackbar.make(this, text, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
 }
 
 //使用Snackbar显示
-public inline fun <T : Activity> T.snackbarShow(text: String) {
+fun <T : Activity> T.snackbarShow(text: String) {
     getCurrentFocus().ifNotNull { view ->
         Snackbar.make(view, text, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -93,12 +92,12 @@ public inline fun <T : Activity> T.snackbarShow(text: String) {
 }
 
 //使用Toast显示
-public inline fun <T : Context> T.toastShow(text: String) {
+fun <T : Context> T.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }
 
 //使用Toast显示
-public inline fun <T : Fragment> T.toastShow(text: String) {
+fun <T : Fragment> T.toastShow(text: String) {
     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
@@ -113,12 +112,12 @@ inline fun <T : FragmentActivity, reified R : ViewModel> T.getViewModel(): R {
 }
 
 //fragment根据id获取view对象
-public inline fun <T : Fragment, R : View?> T.findViewById(id: Int): R? {
+fun <T : Fragment, R : View?> T.findViewById(id: Int): R? {
     return view?.findViewById<R>(id)
 }
 
 //转化
-public inline fun Array<Pair<Int, Int>>.toSparseIntArray(): SparseIntArray {
+fun Array<Pair<Int, Int>>.toSparseIntArray(): SparseIntArray {
     val sparseArray = SparseIntArray()
     this.forEach {
         sparseArray[it.first] = it.second

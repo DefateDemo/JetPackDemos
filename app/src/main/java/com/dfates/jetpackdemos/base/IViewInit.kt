@@ -52,7 +52,7 @@ interface IViewInit {
                     field.isAccessible = true
                     field.set(this, view)
                     if (bindView.onClick.isNotEmpty()) {
-                        var method: Method? = null
+                        var method: Method?
                         try {
                             method = javaClass.getMethod(bindView.onClick, View::class.java)
                             view.setOnClickListener {
@@ -78,7 +78,8 @@ interface IViewInit {
     fun initBindViewModel() {
         javaClass.declaredFields.forEach { field ->
             field.getAnnotation(BindViewModel::class.java).ifNotNull {
-                getViewModel(field!!.type).next(RuntimeException("Canot find the ViewModel of class " + field.type)) { viewModel ->
+                @Suppress("UNCHECKED_CAST")
+                getViewModel(field!!.type as Class<ViewModel>).next(RuntimeException("Canot find the ViewModel of class " + field.type)) { viewModel ->
                     field.isAccessible = true
                     field.set(this, viewModel)
                 }
@@ -91,7 +92,7 @@ interface IViewInit {
         javaClass.declaredFields.forEach { field ->
             field.getAnnotation(BindParam::class.java).ifNotNull { bindParam ->
                 bindParam.key.next(RuntimeException("Please declare the key on the BindParam annotation")) {
-                    getParam(bindParam.key, field.type).ifNotNull { value ->
+                    getParam(bindParam.key).ifNotNull { value ->
                         field.isAccessible = true
                         field.set(this, value)
                     }
@@ -101,13 +102,13 @@ interface IViewInit {
     }
 
     //获取传入的参数
-    fun getParam(key: String, clazz: Class<*>): Any?
+    fun getParam(key: String): Any?
 
     //根据id获取View
     fun <T : View> getViewById(id: Int): T?
 
     //获取ViewModel
-    fun getViewModel(type: Class<*>?): ViewModel
+    fun <T:ViewModel> getViewModel(type: Class<T>): T
 
     /**
      * 初始化视图

@@ -53,12 +53,11 @@ open class BaseDataBindingRecycleViewAdapter<M, VB : ViewDataBinding>(val mConte
         onBindView(holder.binding, mDatas!![position]!!, position)
     }
 
-
-    protected fun onBindView(viewDataBinding: VB, data: M, position: Int, payloads: List<Any>) {
+    protected open fun onBindView(viewDataBinding: VB, data: M, position: Int, payloads: List<Any>) {
         viewDataBinding.setVariable(BR.item, data)
     }
 
-    protected fun onBindView(viewDataBinding: VB, data: M, position: Int) {
+    protected open fun onBindView(viewDataBinding: VB, data: M, position: Int) {
         viewDataBinding.setVariable(BR.item, data)
     }
 }

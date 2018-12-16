@@ -33,14 +33,10 @@ class RoomFragment : BaseFragment(R.layout.fragment_room) {
     override fun initView() {
         super.initView()
 
-        adapter = object : CommonRecycleViewAdapter<User>(context!!, R.layout.layout_list_item, null, { holder, data, _, _ ->
-            //            holder.getView<TextView>(R.id.tv_text)?.text = data.toString()
+        adapter = CommonRecycleViewAdapter<User>(context!!, R.layout.layout_list_item, null ){ holder, data, _, _ ->
             holder.setText(R.id.tv_text, data.toString())
-        }) {
-            override fun getItemViewType(position: Int): Int {
-                return super.getItemViewType(position)
-            }
         }
+
 
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter

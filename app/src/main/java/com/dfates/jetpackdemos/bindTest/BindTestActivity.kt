@@ -44,7 +44,7 @@ class BindTestActivity : BaseActivity(R.layout.activity_bind_test){
         mModel.currentName.observe(this, nameObserver)
     }
 
-    fun onClick(view: View){
+    fun onClick(){
         value++
         mModel.currentName.value = value.toString()
     }

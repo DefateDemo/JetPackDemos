@@ -32,13 +32,8 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
     override fun initView() {
         super.initView()
 
-        adapter = object : CommonRecycleViewAdapter<User>(this, R.layout.layout_list_item, null, { holder, data, _, _ ->
-            //            holder.getView<TextView>(R.id.tv_text)?.text = data.toString()
+        adapter = CommonRecycleViewAdapter<User>(this, R.layout.layout_list_item, null){ holder, data, _, _ ->
             holder.setText(R.id.tv_text, data.toString())
-        }) {
-            override fun getItemViewType(position: Int): Int {
-                return super.getItemViewType(position)
-            }
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
