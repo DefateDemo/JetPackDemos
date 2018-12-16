@@ -8,10 +8,9 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.dfates.jetpackdemos.base.BaseActivity
-import com.dfates.jetpackdemos.bindTest.BindTestActivity
+import com.dfates.jetpackdemos.base.Priority
+import com.dfates.jetpackdemos.base.RunPriority
 import com.dfates.jetpackdemos.common.gotoActivity
-import com.dfates.jetpackdemos.common.runPriority.Priority
-import com.dfates.jetpackdemos.common.runPriority.RunPriority
 import com.dfates.jetpackdemos.common.snackbarShow
 import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
 import com.google.android.material.navigation.NavigationView

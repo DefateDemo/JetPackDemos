@@ -26,9 +26,16 @@ fun <T, R> T.next(function: (T) -> R): R {
 }
 
 //不论该对象是否为空都执行,并返回执行结果
-fun <T> T?.next(consumer: (T) -> Unit, nullConsumer: () -> Unit): T? {
+fun <T> T?.next(nullConsumer: () -> Unit, consumer: (T) -> Unit): T? {
     if (this != null) consumer(this)
     else nullConsumer()
+    return this
+}
+
+//该对象为空抛异常,否则执行并返回结果
+fun <T> T?.next(e: Exception, consumer: (T) -> Unit): T? {
+    if (this != null) consumer(this)
+    else throw e
     return this
 }
 

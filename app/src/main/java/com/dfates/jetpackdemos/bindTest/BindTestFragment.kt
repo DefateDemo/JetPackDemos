@@ -1,14 +1,15 @@
 package com.dfates.jetpackdemos.bindTest
 
 
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
-import com.dfates.jetpackdemos.common.bindView.BindView
-import com.dfates.jetpackdemos.common.param.BindParam
-import com.dfates.jetpackdemos.common.viewModel.BindViewModel
+import com.dfates.jetpackdemos.common.bind.BindView
+import com.dfates.jetpackdemos.common.bind.BindParam
+import com.dfates.jetpackdemos.common.bind.BindViewModel
 import com.dfates.jetpackdemos.viewModel.NameViewModel
 
 class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
@@ -21,12 +22,18 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
     @BindView(R.id.tv_text)
     private lateinit var tvText: TextView
 
-    @BindView(R.id.btn_modify)
+    //绑定视图
+    @BindView(R.id.btn_modify,"onClick")
     private lateinit var btnModify: Button
 
     //绑定参数
     @BindParam("value")
     private var value: Int = 0
+
+    override fun initView() {
+        super.initView()
+        tvText.text =  value.toString()
+    }
 
     override fun initData() {
         super.initData()
@@ -39,12 +46,10 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
         mModel.currentName.observe(this, nameObserver)
     }
 
-    override fun initListener() {
-        super.initListener()
-        btnModify.setOnClickListener { v ->
-            mModel.currentName.value = value.toString()
-            value++
-        }
+    fun onClick(view: View){
+        value++
+        mModel.currentName.value = value.toString()
     }
+
 
 }

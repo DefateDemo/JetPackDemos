@@ -1,5 +1,6 @@
 package com.dfates.jetpackdemos.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +15,16 @@ abstract class BaseActivity(val layoutId: Int) : AppCompatActivity(), IViewInit 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView()
-        init()
+        initAll()
     }
 
     protected open fun setContentView() {
         setContentView(layoutId)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        initBindParam()
     }
 
     override fun onDestroy() {

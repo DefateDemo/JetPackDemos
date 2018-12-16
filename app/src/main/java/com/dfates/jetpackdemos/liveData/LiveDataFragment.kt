@@ -1,37 +1,34 @@
 package com.dfates.jetpackdemos.liveData
 
 
+import android.view.View
+import android.widget.ListView
+import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
-import com.dfates.jetpackdemos.common.adapter.CommonRecycleViewAdapter
-import com.dfates.jetpackdemos.common.bindView.BindView
+import com.dfates.jetpackdemos.common.adapter.CommonAdapter
+import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.room.database.userDao
 import com.dfates.jetpackdemos.room.entity.User
+import com.dfates.jetpackdemos.R
 
 class LiveDataFragment : BaseFragment(R.layout.fragment_live_data) {
 
-    private lateinit var adapter: CommonRecycleViewAdapter<User>
+    private lateinit var adapter: CommonAdapter<User>
 
-    @BindView(R.id.recycler_view)
-    private lateinit var recyclerView: RecyclerView
+    @BindView(R.id.list_view)
+    private lateinit var listView: ListView
+    @BindView(R.id.empty_view)
+    private lateinit var emptyView: View
 
     override fun initView() {
         super.initView()
 
-        adapter = object : CommonRecycleViewAdapter<User>(context!!, R.layout.layout_list_item, null, { holder, data, _, _ ->
-            //            holder.getView<TextView>(R.id.tv_text)?.text = data.toString()
-            holder.setText(R.id.tv_text, data.toString())
-        }) {
-            override fun getItemViewType(position: Int): Int {
-                return super.getItemViewType(position)
-            }
+        adapter = CommonAdapter<User>(context!!, R.layout.layout_list_item, null) { holder, data, _ ->
+            holder.getView<TextView>(R.id.tv_text)?.text = data.toString()
         }
-
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.adapter = adapter
+        listView.emptyView =emptyView
+        listView.adapter = adapter
     }
 
     override fun initData() {

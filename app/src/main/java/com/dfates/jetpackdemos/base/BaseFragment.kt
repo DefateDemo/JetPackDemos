@@ -19,7 +19,7 @@ abstract class BaseFragment(val layoutId: Int) : Fragment(), IViewInit {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        initAll()
     }
 
     //实现根据id获取View

@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.common.viewModel
+package com.dfates.jetpackdemos.common.bind
 
 /**
  * Created by $USER_NAME on 2018/12/15.
