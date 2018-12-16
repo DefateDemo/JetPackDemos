@@ -77,8 +77,8 @@ interface IViewInit {
     //初始化绑定ViewModel对象
     fun initBindViewModel() {
         javaClass.declaredFields.forEach { field ->
-            field.getAnnotation(BindViewModel::class.java).ifNotNull { viewModel ->
-                getViewModel(field!!.type).next(RuntimeException("Canot find the ViewModel of class " + field.type)) {
+            field.getAnnotation(BindViewModel::class.java).ifNotNull {
+                getViewModel(field!!.type).next(RuntimeException("Canot find the ViewModel of class " + field.type)) { viewModel ->
                     field.isAccessible = true
                     field.set(this, viewModel)
                 }

@@ -55,6 +55,22 @@ fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
     return this
 }
 
+//为真时执行闭包，否则不执行
+fun Boolean?.ifTrue(consumer: () -> Unit) : Boolean?{
+    if(this != null && this){
+        consumer()
+    }
+    return this
+}
+
+//为假时执行闭包，否则不执行
+fun Boolean?.ifFalse(consumer: () -> Unit) : Boolean?{
+    if(this != null && !this){
+        consumer()
+    }
+    return this
+}
+
 //跳转到其他Activity
 fun <T : Context, T2 : Activity> T.gotoActivity(cls: Class<T2>, bundle: Bundle? = null) {
     val intent = Intent(this, cls)
@@ -81,14 +97,19 @@ fun <T : Context> T.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }
 
-//获取ViewModel
-fun <T : Fragment, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
-    return ViewModelProviders.of(this).get(clazz.java)
+//使用Toast显示
+fun <T : Fragment> T.toastShow(text: String) {
+    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
 //获取ViewModel
-fun <T : FragmentActivity, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
-    return ViewModelProviders.of(this).get(clazz.java)
+inline fun <T : Fragment, reified R : ViewModel> T.getViewModel(): R {
+    return ViewModelProviders.of(this).get(R::class.java)
+}
+
+//获取ViewModel
+inline fun <T : FragmentActivity, reified R : ViewModel> T.getViewModel(): R {
+    return ViewModelProviders.of(this).get(R::class.java)
 }
 
 //fragment根据id获取view对象
