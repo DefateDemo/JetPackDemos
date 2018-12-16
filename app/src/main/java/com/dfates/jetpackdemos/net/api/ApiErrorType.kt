@@ -1,7 +1,6 @@
-package com.dfates.jetpackdemos.net
+package com.dfates.jetpackdemos.net.api
 
 import android.content.Context
-import androidx.annotation.StringRes
 
 enum class ApiErrorType(val code: Int, val messageId: String) {
     //根据实际情况进行增删

@@ -1,6 +1,7 @@
 package com.dfates.jetpackdemos.liveData
 
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ class LiveDataFragment : BaseFragment(R.layout.fragment_live_data) {
     @BindView(R.id.recycler_view)
     private lateinit var recyclerView: RecyclerView
 
+    @SuppressLint("WrongConstant")
     override fun initView() {
         super.initView()
 

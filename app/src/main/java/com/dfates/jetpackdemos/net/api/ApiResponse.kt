@@ -1,7 +1,6 @@
-package com.dfates.jetpackdemos.net
+package com.dfates.jetpackdemos.net.api
 
 import android.content.Context
-import androidx.lifecycle.Observer
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import retrofit2.HttpException
