@@ -16,19 +16,18 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
 
     //绑定ViewModel
     @BindViewModel
-    private lateinit var mModel: NameViewModel
+    private lateinit var mModel: NameViewModel  //根据类型匹配
 
     //绑定视图
     @BindView(R.id.tv_text)
-    private lateinit var tvText: TextView
-
+    private lateinit var tvText: TextView   //通过传入的id绑定对应的View对象
     //绑定视图
-    @BindView(R.id.btn_modify,"onClick")
+    @BindView(R.id.btn_modify,"onClick")    //绑定View对象的点击事件处理函数，要求该函数必须是一个没有参数或只有一个View作为参数的函数，
     private lateinit var btnModify: Button
 
     //绑定参数
     @BindParam("value")
-    private var value: Int = 0
+    private var value: Int = 0      //通过key值绑定arguments携带的参数
 
     override fun initView() {
         super.initView()

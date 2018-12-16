@@ -7,6 +7,7 @@ import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.bind.BindViewModel
 import com.dfates.jetpackdemos.common.ifNotNull
 import com.dfates.jetpackdemos.common.next
+import java.lang.reflect.Method
 
 //运行优先级级别，优先级越高越先执行
 enum class Priority {
@@ -51,13 +52,21 @@ interface IViewInit {
                     field.isAccessible = true
                     field.set(this, view)
                     if (bindView.onClick.isNotEmpty()) {
+                        var method: Method? = null
                         try {
-                            val method = javaClass.getMethod(bindView.onClick, View::class.java)
+                            method = javaClass.getMethod(bindView.onClick, View::class.java)
                             view.setOnClickListener {
-                                method.invoke(this, it)
+                                method!!.invoke(this, it)
                             }
                         } catch (e: NoSuchMethodException) {
-                            throw RuntimeException("Can't find method: " + bindView.onClick + " on " + field.declaringClass.canonicalName)
+                            try {
+                                method = javaClass.getMethod(bindView.onClick)
+                                view.setOnClickListener {
+                                    method!!.invoke(this)
+                                }
+                            } catch (e: NoSuchMethodException) {
+                                throw RuntimeException("Can't find method: " + bindView.onClick + " on " + field.declaringClass.canonicalName)
+                            }
                         }
                     }
                 }
@@ -68,9 +77,11 @@ interface IViewInit {
     //初始化绑定ViewModel对象
     fun initBindViewModel() {
         javaClass.declaredFields.forEach { field ->
-            field.getAnnotation(BindViewModel::class.java).ifNotNull {
-                field.isAccessible = true
-                field.set(this, getViewModel(field?.type))
+            field.getAnnotation(BindViewModel::class.java).ifNotNull { viewModel ->
+                getViewModel(field!!.type).next(RuntimeException("Canot find the ViewModel of class " + field.type)) {
+                    field.isAccessible = true
+                    field.set(this, viewModel)
+                }
             }
         }
     }
