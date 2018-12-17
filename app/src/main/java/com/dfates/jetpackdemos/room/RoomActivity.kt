@@ -1,13 +1,13 @@
 package com.dfates.jetpackdemos.room
 
 import android.view.View
-import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseActivity
 import com.dfates.jetpackdemos.common.adapter.CommonRecycleViewAdapter
+import com.dfates.jetpackdemos.common.bind.BindClick
 import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.ifNotNull
 import com.dfates.jetpackdemos.common.snackbarShow
@@ -20,19 +20,19 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
     @BindView(R.id.recycle_view)
     private lateinit var recyclerView: RecyclerView
 
-    @BindView(R.id.btn_insert,"onClick")
-    private lateinit var btnInsert: Button
-    @BindView(R.id.btn_read,"onClick")
-    private lateinit var btnRead: Button
-    @BindView(R.id.btn_update,"onClick")
-    private lateinit var btnUpdate: Button
-    @BindView(R.id.btn_delete,"onClick")
-    private lateinit var btnDelete: Button
+//    @BindView(R.id.btn_insert,"onClick")
+//    private lateinit var btnInsert: Button
+//    @BindView(R.id.btn_read,"onClick")
+//    private lateinit var btnRead: Button
+//    @BindView(R.id.btn_update,"onClick")
+//    private lateinit var btnUpdate: Button
+//    @BindView(R.id.btn_delete,"onClick")
+//    private lateinit var btnDelete: Button
 
     override fun initView() {
         super.initView()
 
-        adapter = CommonRecycleViewAdapter<User>(this, R.layout.layout_list_item, null){ holder, data, _, _ ->
+        adapter = CommonRecycleViewAdapter<User>(this, R.layout.layout_list_item, null) { holder, data, _, _ ->
             holder.setText(R.id.tv_text, data.toString())
         }
 
@@ -47,6 +47,7 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
         })
     }
 
+    @BindClick([R.id.btn_insert, R.id.btn_read, R.id.btn_update, R.id.btn_delete])
     fun onClick(view: View?) {
         when (view!!.id) {
             R.id.btn_insert -> {
