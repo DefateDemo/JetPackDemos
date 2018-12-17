@@ -1,18 +1,5 @@
 package com.dfates.jetpackdemos.base
 
-import android.app.Activity
-import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
-import com.dfates.jetpackdemos.common.bind.BindOnClick
-import com.dfates.jetpackdemos.common.bind.BindParam
-import com.dfates.jetpackdemos.common.bind.BindView
-import com.dfates.jetpackdemos.common.bind.BindViewModel
-import com.dfates.jetpackdemos.common.ifNotNull
-import com.dfates.jetpackdemos.common.next
-
 //运行优先级级别，优先级越高越先执行
 enum class Priority {
     HIGH, NORMAL, LOW
@@ -29,7 +16,7 @@ annotation class RunPriority(val value: Priority)
  */
 interface IViewInit {
 
-    //初始化所有
+    //根据优先级调用initView，initListener，initData方法
     fun initAll() {
         val methods = arrayOf(
                 javaClass.getMethod("initView"),
