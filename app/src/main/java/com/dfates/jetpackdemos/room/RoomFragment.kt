@@ -21,14 +21,6 @@ class RoomFragment : BaseFragment(R.layout.fragment_room) {
 
     @BindView(R.id.recycle_view)
     private lateinit var recyclerView: RecyclerView
-//    @BindView(R.id.btn_insert,"onClick")
-//    private lateinit var btnInsert: Button
-//    @BindView(R.id.btn_read,"onClick")
-//    private lateinit var btnRead: Button
-//    @BindView(R.id.btn_update,"onClick")
-//    private lateinit var btnUpdate: Button
-//    @BindView(R.id.btn_delete,"onClick")
-//    private lateinit var btnDelete: Button
 
     override fun initView() {
         super.initView()
@@ -36,7 +28,6 @@ class RoomFragment : BaseFragment(R.layout.fragment_room) {
         adapter = CommonRecycleViewAdapter<User>(context!!, R.layout.layout_list_item, null) { holder, data, _, _ ->
             holder.setText(R.id.tv_text, data.toString())
         }
-
 
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter

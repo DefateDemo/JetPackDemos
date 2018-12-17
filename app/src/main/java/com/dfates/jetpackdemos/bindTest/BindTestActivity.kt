@@ -29,7 +29,7 @@ class BindTestActivity : BaseActivity(R.layout.activity_bind_test){
 
     override fun initView() {
         super.initView()
-        tvText.text =  value.toString().takeIf {  }
+        tvText.text =  value.toString()
     }
 
     override fun initData() {

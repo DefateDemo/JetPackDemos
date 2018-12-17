@@ -13,12 +13,12 @@ class DataBindingActivity : BaseBindingActivity<ActivityDataBindingBinding>(R.la
 
         binding.text2 = ObservableString("双向绑定")
         //列表绑定
-        val adapter = BaseDataBindingSimpleAdapter<String, LayoutBindingListItemBinding>(this,
+        val adapter = BaseDataBindingSimpleAdapter<String>(this,
                 R.layout.layout_binding_list_item, arrayListOf("ListView绑定1", "ListView绑定2", "ListView绑定3"))
         binding.listView.adapter = adapter
 
         binding.recycleView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.recycleView.adapter = BaseDataBindingRecycleViewAdapter<String, LayoutBindingListItemBinding>(this,
+        binding.recycleView.adapter = BaseDataBindingRecycleViewAdapter<String>(this,
                 R.layout.layout_binding_list_item, arrayListOf("RecycleView绑定1", "RecycleView绑定2", "RecycleView绑定3"))
     }
 }

@@ -20,15 +20,6 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
     @BindView(R.id.recycle_view)
     private lateinit var recyclerView: RecyclerView
 
-//    @BindView(R.id.btn_insert,"onClick")
-//    private lateinit var btnInsert: Button
-//    @BindView(R.id.btn_read,"onClick")
-//    private lateinit var btnRead: Button
-//    @BindView(R.id.btn_update,"onClick")
-//    private lateinit var btnUpdate: Button
-//    @BindView(R.id.btn_delete,"onClick")
-//    private lateinit var btnDelete: Button
-
     override fun initView() {
         super.initView()
 

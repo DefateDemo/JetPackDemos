@@ -42,18 +42,18 @@ interface IBind {
                 bindView.id.next(RuntimeException("Please declare the id on the BindView annotation")) { id ->
                     getView(id).ifNotNull { view ->
                         field.isAccessible = true
-                        field.set(this, view)
+                        field.set(this@IBind, view)
                         if (bindView.onClick.isNotEmpty()) {
                             try {
                                 val method = javaClass.getMethod(bindView.onClick, View::class.java)
                                 view.setOnClickListener {
-                                    method.invoke(this, it)
+                                    method.invoke(this@IBind, it)
                                 }
                             } catch (e: NoSuchMethodException) {
                                 try {
                                     val method = javaClass.getMethod(bindView.onClick)
                                     view.setOnClickListener {
-                                        method.invoke(this)
+                                        method.invoke(this@IBind)
                                     }
                                 } catch (e: NoSuchMethodException) {
                                     throw RuntimeException("Can't find method: " + bindView.onClick + " on " + field.declaringClass.canonicalName)
@@ -74,11 +74,11 @@ interface IBind {
                     getView(id).ifNotNull { view ->
                         if (method.parameterTypes.isEmpty()) {
                             view.setOnClickListener {
-                                method.invoke(this)
+                                method.invoke(this@IBind)
                             }
-                        } else if (method.parameterTypes.size == 1 && method.parameterTypes[0] is View) {
+                        } else if (method.parameterTypes.size == 1 && method.parameterTypes[0] == View::class.java) {
                             view.setOnClickListener {
-                                method.invoke(this, it)
+                                method.invoke(this@IBind, it)
                             }
                         }
                     }
@@ -94,7 +94,7 @@ interface IBind {
                 bindParam.key.next(RuntimeException("Please declare the key on the BindParam annotation")) { key ->
                     getParam(key).ifNotNull { value ->
                         field.isAccessible = true
-                        field.set(this, value)
+                        field.set(this@IBind, value)
                     }
                 }
             }
@@ -108,7 +108,7 @@ interface IBind {
                 @Suppress("UNCHECKED_CAST")
                 getViewModel(field!!.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class " + field.type)) { viewModel ->
                     field.isAccessible = true
-                    field.set(this, viewModel)
+                    field.set(this@IBind, viewModel)
                 }
             }
         }

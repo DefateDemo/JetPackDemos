@@ -20,26 +20,26 @@ import com.google.android.material.snackbar.Snackbar
  */
 
 //不论该对象是否为空都执行,并返回执行结果
-inline fun <T, R> T.next(function: (T) -> R): R {
+fun <T, R> T.next(function: (T) -> R): R {
     return function(this)
 }
 
 //不论该对象是否为空都执行,并返回执行结果
-inline fun <T> T?.next(nullConsumer: () -> Unit, consumer: (T) -> Unit): T? {
+fun <T> T?.next(nullConsumer: () -> Unit, consumer: (T) -> Unit): T? {
     if (this != null) consumer(this)
     else nullConsumer()
     return this
 }
 
 //该对象为空抛异常,否则执行并返回结果
-inline fun <T> T?.next(e: Exception, consumer: (T) -> Unit): T? {
+fun <T> T?.next(e: Exception, consumer: (T) -> Unit): T? {
     if (this != null) consumer(this)
     else throw e
     return this
 }
 
 //当某一对象为空时执行，否则不执行
-inline fun <T> T.ifNull(consumer: () -> Unit): T {
+fun <T> T.ifNull(consumer: () -> Unit): T {
     if (this == null) {
         consumer()
     }
@@ -47,7 +47,7 @@ inline fun <T> T.ifNull(consumer: () -> Unit): T {
 }
 
 //当某一对象不为空时执行，否则不执行
-public inline fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
+fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
     if (this != null) {
         consumer(this)
     }
@@ -55,7 +55,7 @@ public inline fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
 }
 
 //为真时执行闭包，否则不执行
-inline fun Boolean?.ifTrue(consumer: () -> Unit): Boolean? {
+fun Boolean?.ifTrue(consumer: () -> Unit): Boolean? {
     if (this != null && this) {
         consumer()
     }
@@ -63,7 +63,7 @@ inline fun Boolean?.ifTrue(consumer: () -> Unit): Boolean? {
 }
 
 //为假时执行闭包，否则不执行
-inline fun Boolean?.ifFalse(consumer: () -> Unit): Boolean? {
+fun Boolean?.ifFalse(consumer: () -> Unit): Boolean? {
     if (this != null && !this) {
         consumer()
     }
@@ -71,20 +71,20 @@ inline fun Boolean?.ifFalse(consumer: () -> Unit): Boolean? {
 }
 
 //跳转到其他Activity
-fun <T : Activity> Context.gotoActivity(cls: Class<T>, bundle: Bundle? = null) {
+inline fun <T : Activity> Context.gotoActivity(cls: Class<T>, bundle: Bundle? = null) {
     val intent = Intent(this, cls)
     bundle.ifNotNull { intent.putExtras(it) }
     startActivity(intent)
 }
 
 //使用Snackbar显示
-fun View.snackbarShow(text: String) {
+inline fun View.snackbarShow(text: String) {
     Snackbar.make(this, text, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
 }
 
 //使用Snackbar显示
-fun Activity.snackbarShow(text: String) {
+inline fun Activity.snackbarShow(text: String) {
     currentFocus.ifNotNull { view ->
         Snackbar.make(view, text, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -92,12 +92,12 @@ fun Activity.snackbarShow(text: String) {
 }
 
 //使用Toast显示
-fun Context.toastShow(text: String) {
+inline fun Context.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }
 
 //使用Toast显示
-fun Fragment.toastShow(text: String) {
+inline fun Fragment.toastShow(text: String) {
     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
@@ -112,7 +112,7 @@ inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T {
 }
 
 //fragment根据id获取view对象
-fun <T : View?> Fragment.findViewById(id: Int): T? {
+inline fun <T : View?> Fragment.findViewById(id: Int): T? {
     return view?.findViewById<T>(id)
 }
 
