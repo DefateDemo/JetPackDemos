@@ -71,20 +71,20 @@ fun Boolean?.ifFalse(consumer: () -> Unit): Boolean? {
 }
 
 //跳转到其他Activity
-inline fun <T : Activity> Context.gotoActivity(cls: Class<T>, bundle: Bundle? = null) {
+fun <T : Activity> Context.gotoActivity(cls: Class<T>, bundle: Bundle? = null) {
     val intent = Intent(this, cls)
     bundle.ifNotNull { intent.putExtras(it) }
     startActivity(intent)
 }
 
 //使用Snackbar显示
-inline fun View.snackbarShow(text: String) {
+fun View.snackbarShow(text: String) {
     Snackbar.make(this, text, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
 }
 
 //使用Snackbar显示
-inline fun Activity.snackbarShow(text: String) {
+fun Activity.snackbarShow(text: String) {
     currentFocus.ifNotNull { view ->
         Snackbar.make(view, text, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -92,12 +92,12 @@ inline fun Activity.snackbarShow(text: String) {
 }
 
 //使用Toast显示
-inline fun Context.toastShow(text: String) {
+fun Context.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }
 
 //使用Toast显示
-inline fun Fragment.toastShow(text: String) {
+fun Fragment.toastShow(text: String) {
     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
@@ -112,7 +112,7 @@ inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T {
 }
 
 //fragment根据id获取view对象
-inline fun <T : View?> Fragment.findViewById(id: Int): T? {
+fun <T : View?> Fragment.findViewById(id: Int): T? {
     return view?.findViewById<T>(id)
 }
 
