@@ -5,4 +5,4 @@ package com.dfates.jetpackdemos.common.bind
  */
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class BindClick(val ids: IntArray) //ids为View的Id集合
+annotation class BindOnClick(val ids: IntArray) //ids为View的Id集合

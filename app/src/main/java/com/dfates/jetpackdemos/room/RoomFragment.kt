@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
 import com.dfates.jetpackdemos.common.adapter.CommonRecycleViewAdapter
-import com.dfates.jetpackdemos.common.bind.BindClick
+import com.dfates.jetpackdemos.common.bind.BindOnClick
 import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.ifNotNull
 import com.dfates.jetpackdemos.common.snackbarShow
@@ -49,7 +49,7 @@ class RoomFragment : BaseFragment(R.layout.fragment_room) {
         })
     }
 
-    @BindClick([R.id.btn_insert, R.id.btn_read, R.id.btn_update, R.id.btn_delete])
+    @BindOnClick([R.id.btn_insert, R.id.btn_read, R.id.btn_update, R.id.btn_delete])
     fun onClick(view: View?) {
         when (view!!.id) {
             R.id.btn_insert -> {

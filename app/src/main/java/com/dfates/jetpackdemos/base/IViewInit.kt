@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
-import com.dfates.jetpackdemos.common.bind.BindClick
+import com.dfates.jetpackdemos.common.bind.BindOnClick
 import com.dfates.jetpackdemos.common.bind.BindParam
 import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.bind.BindViewModel
@@ -23,11 +23,12 @@ enum class Priority {
 @Retention(AnnotationRetention.RUNTIME)
 annotation class RunPriority(val value: Priority)
 
+const val BIND_NONE = 0x00
 const val BIND_VIEW = 0x01
-const val BIND_VIEW_CLICK = 0x02
+const val BIND_VIEW_ON_CLICK = 0x02
 const val BIND_PARAM = 0x04
 const val BIND_VIEW_MODEL = 0x08
-const val BIND_ALL = (BIND_VIEW or BIND_VIEW_CLICK or BIND_PARAM or BIND_VIEW_MODEL)
+const val BIND_ALL = (BIND_VIEW or BIND_VIEW_ON_CLICK or BIND_PARAM or BIND_VIEW_MODEL)
 
 /**
  * 视图初始化接口
@@ -40,7 +41,7 @@ interface IViewInit {
         if (bindType and BIND_VIEW == BIND_VIEW) {
             initBindView()      //初始化绑定View对象
         }
-        if (bindType and BIND_VIEW_CLICK == BIND_VIEW_CLICK) {
+        if (bindType and BIND_VIEW_ON_CLICK == BIND_VIEW_ON_CLICK) {
             initBindClick()      //初始化View对象点击事件
         }
         if (bindType and BIND_PARAM == BIND_PARAM) {
@@ -98,7 +99,7 @@ interface IViewInit {
     //绑定监听事件
     fun initBindClick() {
         javaClass.declaredMethods.forEach { method ->
-            method.getAnnotation(BindClick::class.java).ifNotNull { bindClick ->
+            method.getAnnotation(BindOnClick::class.java).ifNotNull { bindClick ->
                 bindClick.ids.forEach { id ->
                     getView(id).ifNotNull { view ->
                         if (method.parameterTypes.isEmpty()) {

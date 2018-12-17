@@ -1,12 +1,10 @@
 package com.dfates.jetpackdemos.bindTest
 
-import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseActivity
-import com.dfates.jetpackdemos.common.bind.BindClick
+import com.dfates.jetpackdemos.common.bind.BindOnClick
 import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.bind.BindParam
 import com.dfates.jetpackdemos.common.bind.BindViewModel
@@ -45,7 +43,7 @@ class BindTestActivity : BaseActivity(R.layout.activity_bind_test){
         mModel.currentName.observe(this, nameObserver)
     }
 
-    @BindClick([R.id.btn_modify])   //绑定点击事件
+    @BindOnClick([R.id.btn_modify])   //绑定点击事件
     fun onClick(){
         value++
         mModel.currentName.value = value.toString()
