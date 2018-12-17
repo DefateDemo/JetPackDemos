@@ -5,6 +5,7 @@ import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseActivity
 import com.dfates.jetpackdemos.common.adapter.CommonRecycleViewAdapter
 import com.dfates.jetpackdemos.common.bind.BindView
@@ -12,7 +13,6 @@ import com.dfates.jetpackdemos.common.ifNotNull
 import com.dfates.jetpackdemos.common.snackbarShow
 import com.dfates.jetpackdemos.room.database.userDao
 import com.dfates.jetpackdemos.room.entity.User
-import com.dfates.jetpackdemos.R
 
 class RoomActivity : BaseActivity(R.layout.activity_room) {
     private lateinit var adapter: CommonRecycleViewAdapter<User>
@@ -42,7 +42,7 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
 
     override fun initData() {
         super.initData()
-        userDao().all.observe(this, Observer<List<User>> { users ->
+        userDao.all.observe(this, Observer<List<User>> { users ->
             adapter.update(users)
         })
     }
@@ -50,25 +50,24 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
     fun onClick(view: View?) {
         when (view!!.id) {
             R.id.btn_insert -> {
-                userDao().insertAll(User(null, 0, "123456"))
+                userDao.insertAll(User(null, 0, "123456"))
             }
 
             R.id.btn_read -> {
-                userDao().findAll().lastOrNull().ifNotNull {
+                userDao.findAll().lastOrNull().ifNotNull {
                     view.snackbarShow(it.toString())
                 }
             }
 
             R.id.btn_update -> {
-                userDao().findByName("123456")?.forEach {
+                userDao.findByName("123456")?.forEach {
                     it.age++
-                    userDao().update(it)
+                    userDao.update(it)
                 }
             }
-
             R.id.btn_delete -> {
-                userDao().findAll().lastOrNull().ifNotNull {
-                    userDao().delete(it)
+                userDao.findAll().lastOrNull().ifNotNull {
+                    userDao.delete(it)
                 }
             }
         }

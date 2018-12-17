@@ -1,5 +1,6 @@
 package com.dfates.jetpackdemos.liveData
 
+import android.app.ListActivity
 import android.view.View
 import android.widget.ListView
 import android.widget.TextView
@@ -33,7 +34,7 @@ class LiveDataActivity : BaseActivity(R.layout.activity_live_data) {
     override fun initData() {
         super.initData()
 
-        userDao().all.observe(this, Observer<List<User>> { users ->
+        userDao.all.observe(this, Observer<List<User>> { users ->
             adapter.update(users)
         })
     }

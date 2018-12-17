@@ -71,49 +71,49 @@ inline fun Boolean?.ifFalse(consumer: () -> Unit): Boolean? {
 }
 
 //跳转到其他Activity
-fun <T : Context, T2 : Activity> T.gotoActivity(cls: Class<T2>, bundle: Bundle? = null) {
+fun <T : Activity> Context.gotoActivity(cls: Class<T>, bundle: Bundle? = null) {
     val intent = Intent(this, cls)
     bundle.ifNotNull { intent.putExtras(it) }
     startActivity(intent)
 }
 
 //使用Snackbar显示
-fun <T : View> T.snackbarShow(text: String) {
+fun View.snackbarShow(text: String) {
     Snackbar.make(this, text, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
 }
 
 //使用Snackbar显示
-fun <T : Activity> T.snackbarShow(text: String) {
-    getCurrentFocus().ifNotNull { view ->
+fun Activity.snackbarShow(text: String) {
+    currentFocus.ifNotNull { view ->
         Snackbar.make(view, text, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
     }
 }
 
 //使用Toast显示
-fun <T : Context> T.toastShow(text: String) {
+fun Context.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }
 
 //使用Toast显示
-fun <T : Fragment> T.toastShow(text: String) {
+fun Fragment.toastShow(text: String) {
     Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
 //获取ViewModel
-inline fun <T : Fragment, reified R : ViewModel> T.getViewModel(): R {
-    return ViewModelProviders.of(this).get(R::class.java)
+inline fun <reified T : ViewModel> Fragment.getViewModel(): T {
+    return ViewModelProviders.of(this).get(T::class.java)
 }
 
 //获取ViewModel
-inline fun <T : FragmentActivity, reified R : ViewModel> T.getViewModel(): R {
-    return ViewModelProviders.of(this).get(R::class.java)
+inline fun <reified T : ViewModel> FragmentActivity.getViewModel(): T {
+    return ViewModelProviders.of(this).get(T::class.java)
 }
 
 //fragment根据id获取view对象
-fun <T : Fragment, R : View?> T.findViewById(id: Int): R? {
-    return view?.findViewById<R>(id)
+fun <T : View?> Fragment.findViewById(id: Int): T? {
+    return view?.findViewById<T>(id)
 }
 
 //转化

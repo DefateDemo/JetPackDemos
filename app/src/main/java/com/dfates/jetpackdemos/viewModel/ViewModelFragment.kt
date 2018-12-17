@@ -27,6 +27,7 @@ class ViewModelFragment : BaseFragment(R.layout.fragment_view_model) {
     @BindView(R.id.btn_modify)
     private lateinit var btnModify: Button
 
+    @BindParam("value")
     private var value: Int = 0
 
     override fun initView() {

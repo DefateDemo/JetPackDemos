@@ -6,12 +6,12 @@ import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import androidx.lifecycle.Observer
+import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
 import com.dfates.jetpackdemos.common.adapter.CommonAdapter
 import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.room.database.userDao
 import com.dfates.jetpackdemos.room.entity.User
-import com.dfates.jetpackdemos.R
 
 class LiveDataFragment : BaseFragment(R.layout.fragment_live_data) {
 
@@ -36,7 +36,7 @@ class LiveDataFragment : BaseFragment(R.layout.fragment_live_data) {
     override fun initData() {
         super.initData()
 
-        userDao().all.observe(this, Observer<List<User>> { users ->
+        userDao.all.observe(this, Observer<List<User>> { users ->
             adapter.update(users)
         })
     }

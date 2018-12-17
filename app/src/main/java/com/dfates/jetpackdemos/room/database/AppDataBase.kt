@@ -40,10 +40,8 @@ abstract class AppDatabase : RoomDatabase() {
 }
 
 
-fun <T : Context> T.userDao(): UserDao {
-    return AppDatabase.getAppDatabase(this).userDao()
-}
+val Context.userDao: UserDao
+    get() = AppDatabase.getAppDatabase(this).userDao()
 
-fun <T : Fragment> T.userDao(): UserDao {
-    return AppDatabase.getAppDatabase(this.context!!).userDao()
-}
+val Fragment.userDao: UserDao
+    get() = AppDatabase.getAppDatabase(this.context!!).userDao()
