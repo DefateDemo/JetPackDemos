@@ -51,10 +51,9 @@ class RetrofitFragment : BaseBindingFragment<FragmentRetrofitBinding>(R.layout.f
         // 瀑布流相关
 
         var recyclerViewLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        adapter = object : CommonRecycleViewAdapter<String>(context!!
+        adapter = CommonRecycleViewAdapter<String>(context!!
                 , R.layout.layout_pic_adapter
-                , null
-                , { holder, data, _, _ ->
+                , null) { holder, data, _, _ ->
                         holder.getView<TextView>(R.id.text_view)?.text = data.toString()
 
 //            (holder.getView<ImageView>(R.id.my_image_view)!!).setImageDrawable(resources.getDrawable(R.mipmap.test_image))
@@ -70,10 +69,6 @@ class RetrofitFragment : BaseBindingFragment<FragmentRetrofitBinding>(R.layout.f
                                 .into(holder.getView<ImageView>(R.id.my_image_view)!!);
 
 //                        holder.setText(R.id.tv_text, data.toString())
-                    }) {
-                        override fun getItemViewType(position: Int): Int {
-                            return super.getItemViewType(position)
-                        }
                     }
 
         binding.recyclerView.adapter = adapter

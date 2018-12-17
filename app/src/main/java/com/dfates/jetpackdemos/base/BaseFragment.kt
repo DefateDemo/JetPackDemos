@@ -19,19 +19,19 @@ abstract class BaseFragment(val layoutId: Int) : Fragment(), IViewInit {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init()
+        initAll()
     }
 
     //实现根据id获取View
     override fun <T : View> getViewById(id: Int): T? = view?.findViewById(id)
 
     //实现获取ViewModel
-    override fun getViewModel(clazz: Class<*>?): ViewModel {
-        return ViewModelProviders.of(this).get(clazz as Class<ViewModel>)
+    override fun <T : ViewModel> getViewModel(type: Class<T>): T {
+        return ViewModelProviders.of(this).get(type)
     }
 
     //实现获取传入的参数
-    override fun getParam(key: String, clazz: Class<*>): Any? {
+    override fun getParam(key: String): Any? {
         if (arguments != null && arguments!!.containsKey(key)) {
             return arguments!![key]
         }

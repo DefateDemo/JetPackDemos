@@ -31,6 +31,7 @@ abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, var layoutIds: Sp
         notifyDataSetChanged()
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
         val mHolder: VH
@@ -39,6 +40,7 @@ abstract class BaseSimpleAdapter<M, VH>(val mContext: Context, var layoutIds: Sp
             mHolder = getViewHolder(convertView)
             convertView!!.tag = mHolder
         } else {
+            @Suppress("UNCHECKED_CAST")
             mHolder = convertView.tag as VH
         }
         val data = getItem(position)

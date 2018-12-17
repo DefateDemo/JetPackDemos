@@ -1,5 +1,6 @@
 package com.dfates.jetpackdemos.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +15,16 @@ abstract class BaseActivity(val layoutId: Int) : AppCompatActivity(), IViewInit 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView()
-        init()
+        initAll()
     }
 
     protected open fun setContentView() {
         setContentView(layoutId)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        initBindParam()
     }
 
     override fun onDestroy() {
@@ -29,14 +35,14 @@ abstract class BaseActivity(val layoutId: Int) : AppCompatActivity(), IViewInit 
     override fun <T : View> getViewById(id: Int): T? = findViewById(id)
 
     //实现获取ViewModel
-    override fun getViewModel(clazz: Class<*>?): ViewModel {
-        return ViewModelProviders.of(this).get(clazz as Class<ViewModel>)
+    override fun <T : ViewModel> getViewModel(type: Class<T>): T {
+        return ViewModelProviders.of(this).get(type)
     }
 
     //实现获取传入的参数
-    override fun getParam(key: String, clazz: Class<*>): Any? {
-        if (intent?.extras != null && intent!!.extras.containsKey(key)) {
-            return intent.extras[key]
+    override fun getParam(key: String): Any? {
+        if (intent?.extras != null && intent!!.extras!!.containsKey(key)) {
+            return intent!!.extras!![key]
         }
         return null
     }

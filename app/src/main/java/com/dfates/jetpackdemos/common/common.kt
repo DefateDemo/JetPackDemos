@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import kotlin.reflect.KClass
 
 
 /**
@@ -21,19 +20,26 @@ import kotlin.reflect.KClass
  */
 
 //不论该对象是否为空都执行,并返回执行结果
-fun <T, R> T.next(function: (T) -> R): R {
+inline fun <T, R> T.next(function: (T) -> R): R {
     return function(this)
 }
 
 //不论该对象是否为空都执行,并返回执行结果
-fun <T> T?.next(consumer: (T) -> Unit, nullConsumer: () -> Unit): T? {
+inline fun <T> T?.next(nullConsumer: () -> Unit, consumer: (T) -> Unit): T? {
     if (this != null) consumer(this)
     else nullConsumer()
     return this
 }
 
+//该对象为空抛异常,否则执行并返回结果
+inline fun <T> T?.next(e: Exception, consumer: (T) -> Unit): T? {
+    if (this != null) consumer(this)
+    else throw e
+    return this
+}
+
 //当某一对象为空时执行，否则不执行
-fun <T> T.ifNull(consumer: () -> Unit): T {
+inline fun <T> T.ifNull(consumer: () -> Unit): T {
     if (this == null) {
         consumer()
     }
@@ -41,9 +47,25 @@ fun <T> T.ifNull(consumer: () -> Unit): T {
 }
 
 //当某一对象不为空时执行，否则不执行
-fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
+public inline fun <T> T?.ifNotNull(consumer: (T) -> Unit): T? {
     if (this != null) {
         consumer(this)
+    }
+    return this
+}
+
+//为真时执行闭包，否则不执行
+inline fun Boolean?.ifTrue(consumer: () -> Unit): Boolean? {
+    if (this != null && this) {
+        consumer()
+    }
+    return this
+}
+
+//为假时执行闭包，否则不执行
+inline fun Boolean?.ifFalse(consumer: () -> Unit): Boolean? {
+    if (this != null && !this) {
+        consumer()
     }
     return this
 }
@@ -74,14 +96,19 @@ fun <T : Context> T.toastShow(text: String) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
 }
 
-//获取ViewModel
-fun <T : Fragment, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
-    return ViewModelProviders.of(this).get(clazz.java)
+//使用Toast显示
+fun <T : Fragment> T.toastShow(text: String) {
+    Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
 }
 
 //获取ViewModel
-fun <T : FragmentActivity, R : ViewModel> T.getViewModel(clazz: KClass<R>): R {
-    return ViewModelProviders.of(this).get(clazz.java)
+inline fun <T : Fragment, reified R : ViewModel> T.getViewModel(): R {
+    return ViewModelProviders.of(this).get(R::class.java)
+}
+
+//获取ViewModel
+inline fun <T : FragmentActivity, reified R : ViewModel> T.getViewModel(): R {
+    return ViewModelProviders.of(this).get(R::class.java)
 }
 
 //fragment根据id获取view对象

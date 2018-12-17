@@ -16,7 +16,7 @@ import com.dfates.jetpackdemos.common.toSparseIntArray
  */
 open class BaseDataBindingSimpleAdapter<M, VB : ViewDataBinding>(val mContext: Context, var layoutIds: SparseIntArray?, var mDatas: List<M?>?) : BaseAdapter() {
 
-    protected var mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
+    protected open var mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
     /**
      * 使用arrayOf(viewType to layoutId,...) 的形式传入多个布局
@@ -36,6 +36,7 @@ open class BaseDataBindingSimpleAdapter<M, VB : ViewDataBinding>(val mContext: C
         notifyDataSetChanged()
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
         val viewType = getItemViewType(position)
@@ -45,13 +46,14 @@ open class BaseDataBindingSimpleAdapter<M, VB : ViewDataBinding>(val mContext: C
             convertView = viewDataBinding.root
             convertView.tag = viewDataBinding
         } else {
+            @Suppress("UNCHECKED_CAST")
             viewDataBinding = convertView.tag as VB
         }
         onBindView(viewDataBinding, getItem(position)!!, position)
         return convertView
     }
 
-    protected fun onBindView(viewDataBinding: VB, data: M, position: Int) {
+    protected open fun onBindView(viewDataBinding: VB, data: M, position: Int) {
         viewDataBinding.setVariable(BR.item, data)
     }
 
