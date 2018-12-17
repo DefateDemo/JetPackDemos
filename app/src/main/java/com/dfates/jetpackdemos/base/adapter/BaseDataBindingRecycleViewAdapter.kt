@@ -14,7 +14,7 @@ import com.dfates.jetpackdemos.common.toSparseIntArray
 /**
  * Created by $USER_NAME on 2018/12/15.
  */
-open class BaseDataBindingRecycleViewAdapter<M, VB : ViewDataBinding>(val mContext: Context, var layoutIds: SparseIntArray?, var mDatas: List<M?>?) : RecyclerView.Adapter<BindingViewHolder<VB>>() {
+open class BaseDataBindingRecycleViewAdapter<M>(val mContext: Context, var layoutIds: SparseIntArray?, var mDatas: List<M?>?) : RecyclerView.Adapter<BindingViewHolder>() {
 
     protected var mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
@@ -36,8 +36,8 @@ open class BaseDataBindingRecycleViewAdapter<M, VB : ViewDataBinding>(val mConte
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<VB> {
-        val viewDataBinding: VB = DataBindingUtil.inflate(mLayoutInflater, layoutIds!![viewType], parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
+        val viewDataBinding: ViewDataBinding = DataBindingUtil.inflate(mLayoutInflater, layoutIds!![viewType], parent, false)
         return BindingViewHolder(viewDataBinding)
     }
 
@@ -45,21 +45,21 @@ open class BaseDataBindingRecycleViewAdapter<M, VB : ViewDataBinding>(val mConte
 
     override fun getItemViewType(position: Int): Int = 0
 
-    override fun onBindViewHolder(holder: BindingViewHolder<VB>, position: Int, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(holder: BindingViewHolder, position: Int, payloads: MutableList<Any>) {
         onBindView(holder.binding, mDatas!![position]!!, position, payloads)
     }
 
-    override fun onBindViewHolder(holder: BindingViewHolder<VB>, position: Int) {
+    override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
         onBindView(holder.binding, mDatas!![position]!!, position)
     }
 
-    protected open fun onBindView(viewDataBinding: VB, data: M, position: Int, payloads: List<Any>) {
+    protected open fun <VB : ViewDataBinding> onBindView(viewDataBinding: VB, data: M, position: Int, payloads: List<Any>) {
         viewDataBinding.setVariable(BR.item, data)
     }
 
-    protected open fun onBindView(viewDataBinding: VB, data: M, position: Int) {
+    protected open fun <VB : ViewDataBinding> onBindView(viewDataBinding: VB, data: M, position: Int) {
         viewDataBinding.setVariable(BR.item, data)
     }
 }
 
-class BindingViewHolder<T : ViewDataBinding>(val binding: T) : RecyclerView.ViewHolder(binding.root)
+class BindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)

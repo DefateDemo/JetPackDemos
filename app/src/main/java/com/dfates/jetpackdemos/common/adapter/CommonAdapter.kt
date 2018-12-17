@@ -2,13 +2,25 @@ package com.dfates.jetpackdemos.common.adapter
 
 import android.content.Context
 import android.util.SparseArray
+import android.util.SparseIntArray
 import android.view.View
 import com.dfates.jetpackdemos.base.adapter.BaseSimpleAdapter
+import com.dfates.jetpackdemos.common.toSparseIntArray
 
 /**
  * ListView,GridView简洁适配器，使用传入闭包处理的方式实现
  */
-open class CommonAdapter<M>(mContext: Context, layoutId: Int, mDatas: List<M?>?, var convert: ((holder: SimpleViewHolder, data: M?, position: Int) -> Unit)?) : BaseSimpleAdapter<M, SimpleViewHolder>(mContext, layoutId, mDatas) {
+open class CommonAdapter<M>(mContext: Context, layoutIds: SparseIntArray?, mDatas: List<M?>?, var convert: ((holder: SimpleViewHolder, data: M?, position: Int) -> Unit)?) : BaseSimpleAdapter<M, SimpleViewHolder>(mContext, layoutIds, mDatas) {
+
+    /**
+     * 使用arrayOf(viewType to layoutId,...) 的形式传入多个布局
+     */
+    constructor(mContext: Context, layoutIds: Array<Pair<Int, Int>>, mDatas: List<M?>?, convert: ((holder: SimpleViewHolder, data: M?, position: Int) -> Unit)?) : this(mContext, layoutIds.toSparseIntArray(), mDatas, convert)
+
+    /**
+     * 传入单个布局
+     */
+    constructor(mContext: Context, layoutId: Int, mDatas: List<M?>?, convert: ((holder: SimpleViewHolder, data: M?, position: Int) -> Unit)?) : this(mContext, arrayOf(0 to layoutId), mDatas, convert)
 
     override fun setView(convertView: View, holder: SimpleViewHolder, data: M?, position: Int) {
         convert?.invoke(holder, data, position)

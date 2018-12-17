@@ -11,10 +11,7 @@ import androidx.databinding.ViewDataBinding
 import com.dfates.jetpackdemos.BR
 import com.dfates.jetpackdemos.common.toSparseIntArray
 
-/**
- * Created by $USER_NAME on 2018/12/15.
- */
-open class BaseDataBindingSimpleAdapter<M, VB : ViewDataBinding>(val mContext: Context, var layoutIds: SparseIntArray?, var mDatas: List<M?>?) : BaseAdapter() {
+open class BaseDataBindingSimpleAdapter<M>(val mContext: Context, var layoutIds: SparseIntArray?, var mDatas: List<M?>?) : BaseAdapter() {
 
     protected open var mLayoutInflater: LayoutInflater = LayoutInflater.from(mContext)
 
@@ -40,20 +37,20 @@ open class BaseDataBindingSimpleAdapter<M, VB : ViewDataBinding>(val mContext: C
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var convertView = convertView
         val viewType = getItemViewType(position)
-        val viewDataBinding: VB
+        val viewDataBinding: ViewDataBinding
         if (convertView == null) {
             viewDataBinding = DataBindingUtil.inflate(mLayoutInflater, layoutIds!![viewType], parent, false)
             convertView = viewDataBinding.root
             convertView.tag = viewDataBinding
         } else {
             @Suppress("UNCHECKED_CAST")
-            viewDataBinding = convertView.tag as VB
+            viewDataBinding = convertView.tag as ViewDataBinding
         }
         onBindView(viewDataBinding, getItem(position)!!, position)
         return convertView
     }
 
-    protected open fun onBindView(viewDataBinding: VB, data: M, position: Int) {
+    protected open fun <VB : ViewDataBinding> onBindView(viewDataBinding: VB, data: M, position: Int) {
         viewDataBinding.setVariable(BR.item, data)
     }
 
