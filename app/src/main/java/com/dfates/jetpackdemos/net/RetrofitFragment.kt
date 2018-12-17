@@ -3,6 +3,7 @@ package com.dfates.jetpackdemos.net
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +14,7 @@ import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseBindingFragment
 import com.dfates.jetpackdemos.common.adapter.CommonRecycleViewAdapter
 import com.dfates.jetpackdemos.databinding.FragmentRetrofitBinding
+import com.dfates.jetpackdemos.glide.GlideApp
 import com.dfates.jetpackdemos.net.api.ApiClient
 import com.dfates.jetpackdemos.net.api.ApiErrorModel
 import com.dfates.jetpackdemos.net.api.ApiResponse
@@ -54,12 +56,18 @@ class RetrofitFragment : BaseBindingFragment<FragmentRetrofitBinding>(R.layout.f
                 , null
                 , { holder, data, _, _ ->
                         holder.getView<TextView>(R.id.text_view)?.text = data.toString()
-                        holder.getView<ImageView>(R.id.my_image_view)?.scaleType = ImageView.ScaleType.CENTER
 
+//            (holder.getView<ImageView>(R.id.my_image_view)!!).setImageDrawable(resources.getDrawable(R.mipmap.test_image))
 
-                        Glide.with(this)
+//                        Glide.with(this)
+//                                .load(data.toString())
+//                                .into(holder.getView<ImageView>(R.id.my_image_view)!!)
+                        GlideApp
+                                .with(this)
                                 .load(data.toString())
-                                .into(holder.getView<ImageView>(R.id.my_image_view)!!)
+                                .centerCrop()
+                                .placeholder(resources.getDrawable(R.mipmap.test_image))
+                                .into(holder.getView<ImageView>(R.id.my_image_view)!!);
 
 //                        holder.setText(R.id.tv_text, data.toString())
                     }) {
