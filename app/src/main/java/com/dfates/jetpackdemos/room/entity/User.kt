@@ -2,6 +2,7 @@ package com.dfates.jetpackdemos.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 /**
  * Created by $USER_NAME on 2018/12/8.
@@ -14,4 +15,4 @@ data class User(
         var age: Int = 0,
 
         var name: String? = ""
-)
+) : Serializable

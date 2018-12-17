@@ -10,9 +10,11 @@ import androidx.navigation.Navigation
 import com.dfates.jetpackdemos.base.BaseActivity
 import com.dfates.jetpackdemos.base.Priority
 import com.dfates.jetpackdemos.base.RunPriority
+import com.dfates.jetpackdemos.bindTest.BindTestActivity
 import com.dfates.jetpackdemos.common.gotoActivity
 import com.dfates.jetpackdemos.common.snackbarShow
 import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
+import com.dfates.jetpackdemos.room.entity.User
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -92,7 +94,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
             //Architecture
             R.id.bind_test -> {
                 val bundle = Bundle()
-                bundle.putInt("value", 11)
+                bundle.putString("value_string", "hello")
+                bundle.putInt("value_int", 11)
+                bundle.putSerializable("value_user", User(null,10,"1234"))
 //                gotoActivity(BindTestActivity::class.java,bundle)
                 navController.navigate(R.id.bindTestFragment, bundle)
             }

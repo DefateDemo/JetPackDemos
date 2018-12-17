@@ -40,7 +40,7 @@ class RoomFragment : BaseFragment(R.layout.fragment_room) {
         })
     }
 
-    @BindOnClick([R.id.btn_insert, R.id.btn_read, R.id.btn_update, R.id.btn_delete])
+    @BindOnClick(R.id.btn_insert, R.id.btn_read, R.id.btn_update, R.id.btn_delete)
     fun onClick(view: View?) {
         when (view!!.id) {
             R.id.btn_insert -> {
