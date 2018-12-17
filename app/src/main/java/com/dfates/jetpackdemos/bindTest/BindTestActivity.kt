@@ -54,7 +54,7 @@ class BindTestActivity : BaseActivity(R.layout.activity_bind_test){
         mModel.currentName.observe(this, nameObserver)
     }
 
-    @BindOnClick(R.id.btn_modify)   //绑定点击事件
+    @BindOnClick(R.id.btn_modify)   //绑定view点击事件，要求该函数必须是一个没有参数或只有一个View作为参数的函数
     fun onClick() {
         value += 1
         mModel.currentName.value = value.toString()
