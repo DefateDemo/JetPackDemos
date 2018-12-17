@@ -61,7 +61,7 @@ interface IViewInit {
 
     //初始化绑定View对象
     fun initBindView() {
-        javaClass.fields.forEach { field ->
+        javaClass.declaredFields.forEach { field ->
             field.getAnnotation(BindView::class.java).ifNotNull { bindView ->
                 bindView.id.next(RuntimeException("Please declare the id on the BindView annotation")) { id ->
                     getView(id).ifNotNull { view ->
@@ -92,7 +92,7 @@ interface IViewInit {
 
     //初始化绑定参数
     fun initBindParam() {
-        javaClass.fields.forEach { field ->
+        javaClass.declaredFields.forEach { field ->
             field.getAnnotation(BindParam::class.java).ifNotNull { bindParam ->
                 bindParam.key.next(RuntimeException("Please declare the key on the BindParam annotation")) { key ->
                     getParam(key).ifNotNull { value ->
@@ -106,7 +106,7 @@ interface IViewInit {
 
     //初始化绑定ViewModel对象
     fun initBindViewModel() {
-        javaClass.fields.forEach { field ->
+        javaClass.declaredFields.forEach { field ->
             field.getAnnotation(BindViewModel::class.java).ifNotNull {
                 @Suppress("UNCHECKED_CAST")
                 getViewModel(field!!.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class " + field.type)) { viewModel ->
