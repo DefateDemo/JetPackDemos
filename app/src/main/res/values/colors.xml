@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="colorTabTextNormal">#3f5a6c</color>
+    <color name="colorTabTextSelected">#b21712</color>
+    <color name="colorSelectedTabIndicator">#b21712</color>
 </resources>

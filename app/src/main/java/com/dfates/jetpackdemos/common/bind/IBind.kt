@@ -7,7 +7,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.dfates.jetpackdemos.common.ifNotNull
+import com.dfates.jetpackdemos.common.ifTrue
 import com.dfates.jetpackdemos.common.next
+import java.lang.reflect.Field
+import java.lang.reflect.Method
 
 const val BIND_NONE = 0x00
 const val BIND_VIEW = 0x01
@@ -18,99 +21,92 @@ const val BIND_ALL = (BIND_VIEW or BIND_VIEW_ON_CLICK or BIND_PARAM or BIND_VIEW
 
 interface IBind {
 
-    val bindType: Int
-
-    fun initBind() {
-        if (bindType and BIND_VIEW == BIND_VIEW) {
-            initBindView()      //初始化绑定View对象
+    fun initBind(bindType: Int) {
+        if (bindType and BIND_VIEW == BIND_VIEW || bindType and BIND_PARAM == BIND_PARAM || bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL) {
+            javaClass.declaredFields.forEach { field ->
+                //初始化绑定View对象
+                (bindType and BIND_VIEW == BIND_VIEW).ifTrue {
+                    field.getAnnotation(BindView::class.java).ifNotNull { bindView ->
+                        bindView(field, bindView)
+                    }
+                }
+                //初始化绑定参数
+                (bindType and BIND_PARAM == BIND_PARAM).ifTrue {
+                    field.getAnnotation(BindParam::class.java).ifNotNull { bindParam ->
+                        bindParam(field, bindParam)
+                    }
+                }
+                //初始化绑定ViewModel对象
+                (bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL).ifTrue {
+                    field.getAnnotation(BindViewModel::class.java).ifNotNull { bindViewModel ->
+                        bindViewModel(field, bindViewModel)
+                    }
+                }
+            }
         }
         if (bindType and BIND_VIEW_ON_CLICK == BIND_VIEW_ON_CLICK) {
-            initBindClick()      //初始化View对象点击事件
-        }
-        if (bindType and BIND_PARAM == BIND_PARAM) {
-            initBindParam()     //初始化绑定参数
-        }
-        if (bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL) {
-            initBindViewModel() //初始化绑定ViewModel对象
-        }
-    }
-
-    //初始化绑定View对象
-    fun initBindView() {
-        javaClass.declaredFields.forEach { field ->
-            field.getAnnotation(BindView::class.java).ifNotNull { bindView ->
-                bindView.id.next(RuntimeException("Please declare the id on the BindView annotation")) { id ->
-                    getView(id).ifNotNull { view ->
-                        field.isAccessible = true
-                        field.set(this@IBind, view)
-                        if (bindView.onClick.isNotEmpty()) {
-                            try {
-                                val method = javaClass.getMethod(bindView.onClick, View::class.java)
-                                view.setOnClickListener {
-                                    method.invoke(this@IBind, it)
-                                }
-                            } catch (e: NoSuchMethodException) {
-                                try {
-                                    val method = javaClass.getMethod(bindView.onClick)
-                                    view.setOnClickListener {
-                                        method.invoke(this@IBind)
-                                    }
-                                } catch (e: NoSuchMethodException) {
-                                    throw RuntimeException("Can't find method: " + bindView.onClick + " on " + field.declaringClass.canonicalName)
-                                }
-                            }
-                        }
+            javaClass.declaredMethods.forEach { method ->
+                //初始化View对象点击事件
+                (bindType and BIND_VIEW_ON_CLICK == BIND_VIEW_ON_CLICK).ifTrue {
+                    method.getAnnotation(BindOnClick::class.java).ifNotNull { bindOnClick ->
+                        bindOnClick(method, bindOnClick)
                     }
                 }
             }
         }
     }
 
-    //绑定监听事件
-    fun initBindClick() {
-        javaClass.declaredMethods.forEach { method ->
-            method.getAnnotation(BindOnClick::class.java).ifNotNull { bindClick ->
-                bindClick.ids.forEach { id ->
-                    getView(id).ifNotNull { view ->
-                        if (method.parameterTypes.isEmpty()) {
-                            view.setOnClickListener {
-                                method.invoke(this@IBind)
-                            }
-                        } else if (method.parameterTypes.size == 1 && method.parameterTypes[0] == View::class.java) {
-                            view.setOnClickListener {
-                                method.invoke(this@IBind, it)
-                            }
-                        }
+    fun bindView(field: Field, bindView: BindView) {
+        val view: View = getView(bindView.id)
+        field.isAccessible = true
+        field.set(this@IBind, view)
+        if (bindView.onClick.isNotEmpty()) {
+            try {
+                val method = javaClass.getMethod(bindView.onClick, View::class.java)
+                view.setOnClickListener {
+                    method.invoke(this@IBind, it)
+                }
+            } catch (e: NoSuchMethodException) {
+                try {
+                    val method = javaClass.getMethod(bindView.onClick)
+                    view.setOnClickListener {
+                        method.invoke(this@IBind)
+                    }
+                } catch (e: NoSuchMethodException) {
+                    throw RuntimeException("Can't find method: " + bindView.onClick + " on " + field.declaringClass.canonicalName)
+                }
+            }
+        }
+    }
+
+    fun bindOnClick(method: Method, bindOnClick: BindOnClick) {
+        bindOnClick.ids.forEach { id ->
+            getView(id).ifNotNull { view ->
+                if (method.parameterTypes.isEmpty()) {
+                    view.setOnClickListener {
+                        method.invoke(this@IBind)
+                    }
+                } else if (method.parameterTypes.size == 1 && method.parameterTypes[0] == View::class.java) {
+                    view.setOnClickListener {
+                        method.invoke(this@IBind, it)
                     }
                 }
             }
         }
     }
 
-    //初始化绑定参数
-    fun initBindParam() {
-        javaClass.declaredFields.forEach { field ->
-            field.getAnnotation(BindParam::class.java).ifNotNull { bindParam ->
-                bindParam.key.next(RuntimeException("Please declare the key on the BindParam annotation")) { key ->
-                    getParam(key).ifNotNull { value ->
-                        field.isAccessible = true
-                        field.set(this@IBind, value)
-                    }
-                }
-            }
+    fun bindParam(field: Field, bindParam: BindParam) {
+        getParam(bindParam.key).ifNotNull { value ->
+            field.isAccessible = true
+            field.set(this@IBind, value)
         }
     }
 
-    //初始化绑定ViewModel对象
-    fun initBindViewModel() {
-        javaClass.declaredFields.forEach { field ->
-            field.getAnnotation(BindViewModel::class.java).ifNotNull {
-                @Suppress("UNCHECKED_CAST")
-                getViewModel(field!!.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class " + field.type)) { viewModel ->
-                    field.isAccessible = true
-                    field.set(this@IBind, viewModel)
-                }
-            }
+    fun bindViewModel(field: Field, bindViewModel: BindViewModel) {
+        @Suppress("UNCHECKED_CAST")
+        getViewModel(field.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class " + field.type)) { viewModel ->
+            field.isAccessible = true
+            field.set(this@IBind, viewModel)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.dfates.jetpackdemos.room.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
@@ -14,5 +15,8 @@ data class User(
 
         var age: Int = 0,
 
-        var name: String? = ""
+        var name: String? = "",
+
+        @ColumnInfo(name = "is_default")
+        var isDefault: Boolean = false
 ) : Serializable

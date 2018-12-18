@@ -23,4 +23,6 @@ interface UserDao : BaseDao<User> {
     @Query("SELECT * FROM t_user WHERE name = :name")
     fun findByName(name: String): List<User>?
 
+    @Query("UPDATE t_user SET is_default = CASE id WHEN :id THEN 1 ELSE 0 END")
+    fun setDefault(id: Int)
 }

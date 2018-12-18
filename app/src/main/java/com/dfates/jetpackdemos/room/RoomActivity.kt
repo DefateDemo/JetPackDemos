@@ -20,6 +20,8 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
     @BindView(R.id.recycle_view)
     private lateinit var recyclerView: RecyclerView
 
+    private var name = 10000
+
     override fun initView() {
         super.initView()
 
@@ -42,23 +44,27 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
     fun onClick(view: View?) {
         when (view!!.id) {
             R.id.btn_insert -> {
-                userDao.insertAll(User(null, 0, "123456"))
+                userDao.insertAll(User(null, 0, name++.toString()))
             }
 
             R.id.btn_read -> {
-                userDao.findAll().lastOrNull().ifNotNull {
+                userDao.findAll().randomOne().ifNotNull {
                     view.snackbarShow(it.toString())
                 }
             }
 
             R.id.btn_update -> {
-                userDao.findByName("123456")?.forEach {
-                    it.age++
-                    userDao.update(it)
+                userDao.findAll().randomOne().ifNotNull { user ->
+                    userDao.setDefault(user.id!!)
+                }
+                userDao.findAll().randomOne().ifNotNull { user ->
+                    user.age++
+                    userDao.update(user)
                 }
             }
+
             R.id.btn_delete -> {
-                userDao.findAll().lastOrNull().ifNotNull {
+                userDao.findAll().randomOne().ifNotNull {
                     userDao.delete(it)
                 }
             }
@@ -66,3 +72,4 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
     }
 
 }
+

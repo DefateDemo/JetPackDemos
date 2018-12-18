@@ -6,13 +6,13 @@ import androidx.lifecycle.Observer
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
 import com.dfates.jetpackdemos.common.bind.BindOnClick
-import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.bind.BindParam
+import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.bind.BindViewModel
 import com.dfates.jetpackdemos.room.entity.User
 import com.dfates.jetpackdemos.viewModel.NameViewModel
-import kotlinx.android.synthetic.main.activity_bind_test.*
 
+//绑定时间小米4 8ms
 class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
 
     //绑定ViewModel
@@ -34,15 +34,15 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
     @BindParam("value_int")
     private var value: Int = 0    //通过key值绑定arguments携带的参数
     @BindParam("value_string")
-    private var string:String = ""
+    private var string: String = ""
     @BindParam("value_user")
-    private var user:User? = null
+    private var user: User? = null
 
     override fun initView() {
         super.initView()
         tvStr.text = string
         tvUser.text = user.toString()
-        tvText.text =  value.toString()
+        tvText.text = value.toString()
     }
 
     override fun initData() {

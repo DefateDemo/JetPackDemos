@@ -13,7 +13,7 @@ import com.dfates.jetpackdemos.room.entity.User
  * Created by $USER_NAME on 2018/12/8.
  */
 
-@Database(entities = [User::class], version = 2)
+@Database(entities = [User::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
