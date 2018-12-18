@@ -15,14 +15,15 @@ import java.util.*
 
 const val BIND_NONE = 0x00
 const val BIND_VIEW = 0x01
-const val BIND_VIEW_ON_CLICK = 0x02
+const val BIND_ON_CLICK = 0x02
 const val BIND_PARAM = 0x04
 const val BIND_VIEW_MODEL = 0x08
-const val BIND_ALL = (BIND_VIEW or BIND_VIEW_ON_CLICK or BIND_PARAM or BIND_VIEW_MODEL)
+const val BIND_ALL = (BIND_VIEW or BIND_ON_CLICK or BIND_PARAM or BIND_VIEW_MODEL)
 
 
 interface IBind {
 
+    //绑定
     fun initBind(bindType: Int) {
         if (bindType and BIND_VIEW == BIND_VIEW || bindType and BIND_PARAM == BIND_PARAM || bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL) {
             getFields().forEach { field ->
@@ -46,10 +47,10 @@ interface IBind {
                 }
             }
         }
-        if (bindType and BIND_VIEW_ON_CLICK == BIND_VIEW_ON_CLICK) {
+        if (bindType and BIND_ON_CLICK == BIND_ON_CLICK) {
             getMethods().forEach { method ->
                 //初始化View对象点击事件
-                (bindType and BIND_VIEW_ON_CLICK == BIND_VIEW_ON_CLICK).ifTrue {
+                (bindType and BIND_ON_CLICK == BIND_ON_CLICK).ifTrue {
                     method.getAnnotation(BindOnClick::class.java).ifNotNull { bindOnClick ->
                         bindOnClick(method, bindOnClick)
                     }
@@ -58,6 +59,7 @@ interface IBind {
         }
     }
 
+    //绑定View
     fun bindView(field: Field, bindView: BindView) {
         val view: View = getView(bindView.id)
         field.isAccessible = true
@@ -81,6 +83,7 @@ interface IBind {
         }
     }
 
+    //绑定点击事件
     fun bindOnClick(method: Method, bindOnClick: BindOnClick) {
         bindOnClick.ids.forEach { id ->
             getView(id).ifNotNull { view ->
@@ -97,6 +100,7 @@ interface IBind {
         }
     }
 
+    //绑定参数
     fun bindParam(field: Field, bindParam: BindParam) {
         getParam(bindParam.key).ifNotNull { value ->
             field.isAccessible = true
@@ -104,6 +108,7 @@ interface IBind {
         }
     }
 
+    //绑定ViewModel
     fun bindViewModel(field: Field, bindViewModel: BindViewModel) {
         @Suppress("UNCHECKED_CAST")
         getViewModel(field.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class " + field.type)) { viewModel ->
