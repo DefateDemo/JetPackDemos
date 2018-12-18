@@ -11,6 +11,7 @@ import com.dfates.jetpackdemos.common.ifTrue
 import com.dfates.jetpackdemos.common.next
 import java.lang.reflect.Field
 import java.lang.reflect.Method
+import java.util.*
 
 const val BIND_NONE = 0x00
 const val BIND_VIEW = 0x01
@@ -19,11 +20,12 @@ const val BIND_PARAM = 0x04
 const val BIND_VIEW_MODEL = 0x08
 const val BIND_ALL = (BIND_VIEW or BIND_VIEW_ON_CLICK or BIND_PARAM or BIND_VIEW_MODEL)
 
+
 interface IBind {
 
     fun initBind(bindType: Int) {
         if (bindType and BIND_VIEW == BIND_VIEW || bindType and BIND_PARAM == BIND_PARAM || bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL) {
-            javaClass.declaredFields.forEach { field ->
+            getFields().forEach { field ->
                 //初始化绑定View对象
                 (bindType and BIND_VIEW == BIND_VIEW).ifTrue {
                     field.getAnnotation(BindView::class.java).ifNotNull { bindView ->
@@ -45,7 +47,7 @@ interface IBind {
             }
         }
         if (bindType and BIND_VIEW_ON_CLICK == BIND_VIEW_ON_CLICK) {
-            javaClass.declaredMethods.forEach { method ->
+            getMethods().forEach { method ->
                 //初始化View对象点击事件
                 (bindType and BIND_VIEW_ON_CLICK == BIND_VIEW_ON_CLICK).ifTrue {
                     method.getAnnotation(BindOnClick::class.java).ifNotNull { bindOnClick ->
@@ -136,4 +138,29 @@ interface IBind {
             else -> throw RuntimeException("this class must be FragmentActivity or Fragment")
         }
     }
+
+    //获取所有字段，包括父类的字段
+    fun getFields(): List<Field> {
+        val fields = LinkedList<Field>()
+        var tempClazz: Class<*>? = this.javaClass
+        val exceptClasss = arrayOf(Any::class.java, Fragment::class.java, Activity::class.java)
+        while (tempClazz != null && tempClazz !in exceptClasss) {
+            fields.addAll(tempClazz.declaredFields)
+            tempClazz = tempClazz.superclass
+        }
+        return fields
+    }
+
+    // 获取所有方法，包括父类的方法
+    fun getMethods(): List<Method> {
+        val methods = LinkedList<Method>()
+        var tempClazz: Class<*>? = this.javaClass
+        val exceptClasss = arrayOf(Any::class.java, Fragment::class.java, Activity::class.java)
+        while (tempClazz != null && tempClazz !in exceptClasss) {
+            methods.addAll(tempClazz.declaredMethods)
+            tempClazz = tempClazz.superclass
+        }
+        return methods
+    }
+
 }

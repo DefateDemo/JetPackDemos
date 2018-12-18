@@ -20,9 +20,7 @@ abstract class BaseFragment(val layoutId: Int) : Fragment(), IViewInit, IBind {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        System.out.println(System.currentTimeMillis().toString())
         initBind(BIND_ALL)  //初始化绑定
-        System.out.println(System.currentTimeMillis().toString())
         initAll()   //调用initView,initListener,initData方法
     }
 }
