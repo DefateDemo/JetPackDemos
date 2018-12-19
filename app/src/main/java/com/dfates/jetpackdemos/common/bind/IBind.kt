@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.dfates.jetpackdemos.common.ifNotNull
+import com.dfates.jetpackdemos.common.ifNull
 import com.dfates.jetpackdemos.common.ifTrue
 import com.dfates.jetpackdemos.common.next
 import java.lang.reflect.Field
@@ -25,32 +26,37 @@ interface IBind {
 
     //绑定
     fun initBind(bindType: Int) {
-        if (bindType and BIND_VIEW == BIND_VIEW || bindType and BIND_PARAM == BIND_PARAM || bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL) {
+        val bView = bindType and BIND_VIEW == BIND_VIEW
+        val bParam = bindType and BIND_PARAM == BIND_PARAM
+        val bViewModel = bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL
+        val bOnCLick = bindType and BIND_ON_CLICK == BIND_ON_CLICK
+
+        if (bView || bParam || bViewModel) {
             getFields().forEach { field ->
                 //初始化绑定View对象
-                (bindType and BIND_VIEW == BIND_VIEW).ifTrue {
+                bView.ifTrue {
                     field.getAnnotation(BindView::class.java).ifNotNull { bindView ->
                         bindView(field, bindView)
                     }
                 }
                 //初始化绑定参数
-                (bindType and BIND_PARAM == BIND_PARAM).ifTrue {
+                bParam.ifTrue {
                     field.getAnnotation(BindParam::class.java).ifNotNull { bindParam ->
                         bindParam(field, bindParam)
                     }
                 }
                 //初始化绑定ViewModel对象
-                (bindType and BIND_VIEW_MODEL == BIND_VIEW_MODEL).ifTrue {
+                bViewModel.ifTrue {
                     field.getAnnotation(BindViewModel::class.java).ifNotNull { bindViewModel ->
                         bindViewModel(field, bindViewModel)
                     }
                 }
             }
         }
-        if (bindType and BIND_ON_CLICK == BIND_ON_CLICK) {
+        if (bOnCLick) {
             getMethods().forEach { method ->
                 //初始化View对象点击事件
-                (bindType and BIND_ON_CLICK == BIND_ON_CLICK).ifTrue {
+                bOnCLick.ifTrue {
                     method.getAnnotation(BindOnClick::class.java).ifNotNull { bindOnClick ->
                         bindOnClick(method, bindOnClick)
                     }
@@ -60,7 +66,7 @@ interface IBind {
     }
 
     //绑定View
-    fun bindView(field: Field, bindView: BindView) {
+    private fun bindView(field: Field, bindView: BindView) {
         val view: View = getView(bindView.id)
         field.isAccessible = true
         field.set(this@IBind, view)
@@ -84,7 +90,7 @@ interface IBind {
     }
 
     //绑定点击事件
-    fun bindOnClick(method: Method, bindOnClick: BindOnClick) {
+    private fun bindOnClick(method: Method, bindOnClick: BindOnClick) {
         bindOnClick.ids.forEach { id ->
             getView(id).ifNotNull { view ->
                 if (method.parameterTypes.isEmpty()) {
@@ -101,7 +107,7 @@ interface IBind {
     }
 
     //绑定参数
-    fun bindParam(field: Field, bindParam: BindParam) {
+    private fun bindParam(field: Field, bindParam: BindParam) {
         getParam(bindParam.key).ifNotNull { value ->
             field.isAccessible = true
             field.set(this@IBind, value)
@@ -109,25 +115,25 @@ interface IBind {
     }
 
     //绑定ViewModel
-    fun bindViewModel(field: Field, bindViewModel: BindViewModel) {
+    private fun bindViewModel(field: Field, bindViewModel: BindViewModel) {
         @Suppress("UNCHECKED_CAST")
-        getViewModel(field.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class " + field.type)) { viewModel ->
+        getViewModel(field.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class ${field.type}")) { viewModel ->
             field.isAccessible = true
             field.set(this@IBind, viewModel)
         }
     }
 
     //根据Id获取View
-    fun getView(id: Int): View {
+    private fun getView(id: Int): View {
         return when {
-            this is Activity -> findViewById(id)!!
-            this is Fragment -> view?.findViewById(id)!!
+            this is Activity -> findViewById<View>(id).ifNull { throw RuntimeException("Can't find the view from id: $id") }
+            this is Fragment -> view!!.findViewById<View>(id).ifNull { throw RuntimeException("Can't find the view from id: $id") }
             else -> throw RuntimeException("this class must be Activity or Fragment")
         }
     }
 
     //根据key获取传入的参数
-    fun getParam(key: String): Any? {
+    private fun getParam(key: String): Any? {
         return when {
             this is Activity -> if (intent?.extras == null || !intent.extras!!.containsKey(key)) null else intent.extras!![key]
             this is Fragment -> if (arguments == null || !arguments!!.containsKey(key)) null else arguments!![key]
@@ -136,7 +142,7 @@ interface IBind {
     }
 
     //根据class获取ViewModel
-    fun <T : ViewModel> getViewModel(clazz: Class<T>): T {
+    private fun <T : ViewModel> getViewModel(clazz: Class<T>): T {
         return when {
             this is FragmentActivity -> ViewModelProviders.of(this).get(clazz)
             this is Fragment -> ViewModelProviders.of(this).get(clazz)
@@ -145,7 +151,7 @@ interface IBind {
     }
 
     //获取所有字段，包括父类的字段
-    fun getFields(): List<Field> {
+    private fun getFields(): List<Field> {
         val fields = LinkedList<Field>()
         var tempClazz: Class<*>? = this.javaClass
         val exceptClasss = arrayOf(Any::class.java, Fragment::class.java, Activity::class.java)
@@ -157,7 +163,7 @@ interface IBind {
     }
 
     // 获取所有方法，包括父类的方法
-    fun getMethods(): List<Method> {
+    private fun getMethods(): List<Method> {
         val methods = LinkedList<Method>()
         var tempClazz: Class<*>? = this.javaClass
         val exceptClasss = arrayOf(Any::class.java, Fragment::class.java, Activity::class.java)
