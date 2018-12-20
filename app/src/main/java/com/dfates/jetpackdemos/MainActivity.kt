@@ -118,8 +118,9 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
                 navController.navigate(R.id.roomFragment)
             }
             R.id.viewModel -> {
-                gotoActivity(ViewModelActivity::class.java)
+//                gotoActivity(ViewModelActivity::class.java)
 //                navController.navigate(R.id.viewModelFragment)
+                navController.navigate(R.id.parentViewModelFragment)
             }
             R.id.workManager -> {
                 snackbarShow("Not Found Impl")

@@ -52,7 +52,14 @@
         android:id="@+id/liveDataFragment"
         android:name="com.dfates.jetpackdemos.liveData.LiveDataFragment"
         android:label="liveDataFragment"
-        tools:layout="@layout/fragment_liva_data" >
+        tools:layout="@layout/fragment_live_data" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/parentViewModelFragment"
+        android:name="com.dfates.jetpackdemos.viewModel.ParentViewModelFragment"
+        android:label="parentViewModelFragment"
+        tools:layout="@layout/fragment_parent_view_model" >
     </fragment>
 
     <fragment
