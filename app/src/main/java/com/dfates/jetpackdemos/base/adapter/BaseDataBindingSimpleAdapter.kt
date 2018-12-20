@@ -50,7 +50,7 @@ open class BaseDataBindingSimpleAdapter<M>(val mContext: Context, var layoutIds:
         return convertView
     }
 
-    protected open fun <VB : ViewDataBinding> onBindView(viewDataBinding: VB, data: M, position: Int) {
+    protected open fun onBindView(viewDataBinding: ViewDataBinding, data: M, position: Int) {
         viewDataBinding.setVariable(BR.item, data)
     }
 

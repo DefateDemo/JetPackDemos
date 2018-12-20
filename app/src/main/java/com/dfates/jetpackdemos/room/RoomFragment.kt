@@ -31,7 +31,7 @@ class RoomFragment : BaseFragment(R.layout.fragment_room) {
             holder.setText(R.id.tv_text, data.toString())
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerView.adapter = adapter
     }
 

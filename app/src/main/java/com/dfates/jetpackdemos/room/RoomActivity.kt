@@ -29,7 +29,7 @@ class RoomActivity : BaseActivity(R.layout.activity_room) {
             holder.setText(R.id.tv_text, data.toString())
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         recyclerView.adapter = adapter
     }
 

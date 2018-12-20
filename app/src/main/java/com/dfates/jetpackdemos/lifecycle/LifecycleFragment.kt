@@ -1,7 +1,6 @@
 package com.dfates.jetpackdemos.lifecycle
 
 
-import android.os.Bundle
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
 import com.dfates.jetpackdemos.base.Priority
