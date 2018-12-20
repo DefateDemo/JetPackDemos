@@ -2,7 +2,7 @@ package com.dfates.jetpackdemos
 
 
 import androidx.navigation.Navigation
-import com.dfates.jetpackdemos.base.BaseBindingFragment
+import com.dfates.jetpackdemos.base.databinding.BaseBindingFragment
 import com.dfates.jetpackdemos.databinding.FragmentMainBinding
 
 class MainFragment : BaseBindingFragment<FragmentMainBinding>(R.layout.fragment_main) {

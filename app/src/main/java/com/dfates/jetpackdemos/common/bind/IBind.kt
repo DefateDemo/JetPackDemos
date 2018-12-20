@@ -117,7 +117,7 @@ interface IBind {
     //绑定ViewModel
     private fun bindViewModel(field: Field, bindViewModel: BindViewModel) {
         @Suppress("UNCHECKED_CAST")
-        getViewModel(field.type as Class<ViewModel>).next(RuntimeException("Can't find the ViewModel of class ${field.type}")) { viewModel ->
+        getViewModel(field.type as Class<ViewModel>, bindViewModel.getActivity).next(RuntimeException("Can't find the ViewModel of class ${field.type}")) { viewModel ->
             field.isAccessible = true
             field.set(this@IBind, viewModel)
         }
@@ -142,10 +142,18 @@ interface IBind {
     }
 
     //根据class获取ViewModel
-    private fun <T : ViewModel> getViewModel(clazz: Class<T>): T {
+    private fun <T : ViewModel> getViewModel(clazz: Class<T>, getActivity: Boolean): T {
         return when {
             this is FragmentActivity -> ViewModelProviders.of(this).get(clazz)
-            this is Fragment -> ViewModelProviders.of(this).get(clazz)
+            this is Fragment -> if (getActivity) {
+                if (this.activity is FragmentActivity) {
+                    ViewModelProviders.of(this.activity!!).get(clazz)
+                } else {
+                    throw RuntimeException("this class's super activity must be FragmentActivity")
+                }
+            } else {
+                ViewModelProviders.of(this).get(clazz)
+            }
             else -> throw RuntimeException("this class must be FragmentActivity or Fragment")
         }
     }

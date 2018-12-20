@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.base
+package com.dfates.jetpackdemos.base.databinding
 
 import android.view.View
 import android.widget.AdapterView
@@ -6,6 +6,7 @@ import android.widget.ListView
 import androidx.databinding.ViewDataBinding
 import com.dfates.jetpackdemos.BR
 import com.dfates.jetpackdemos.R
+import com.dfates.jetpackdemos.base.BaseFragment
 import com.dfates.jetpackdemos.base.adapter.BaseDataBindingSimpleAdapter
 import com.dfates.jetpackdemos.common.bind.BindView
 
@@ -13,7 +14,7 @@ import com.dfates.jetpackdemos.common.bind.BindView
  * Created by $USER_NAME on 2018/12/20.
  */
 
-abstract class BaseBindingListActivity<M, VB : ViewDataBinding>(layoutId: Int, val itemLayoutId: Int) : BaseActivity(layoutId), AdapterView.OnItemClickListener {
+abstract class BaseBindingListFragment<M, VB : ViewDataBinding>(layoutId: Int, val itemLayoutId: Int) : BaseFragment(layoutId), AdapterView.OnItemClickListener {
 
     @BindView(R.id.list_view)
     protected lateinit var listView: ListView
@@ -31,9 +32,9 @@ abstract class BaseBindingListActivity<M, VB : ViewDataBinding>(layoutId: Int, v
 
     override fun initView() {
         super.initView()
-        adapter = object : BaseDataBindingSimpleAdapter<M>(this, itemLayoutId, mDatas) {
+        adapter = object : BaseDataBindingSimpleAdapter<M>(context!!, itemLayoutId, mDatas) {
             override fun onBindView(viewDataBinding: ViewDataBinding, data: M, position: Int) {
-                this@BaseBindingListActivity.onBindView(viewDataBinding as VB, data, position)
+                this@BaseBindingListFragment.onBindView(viewDataBinding as VB, data, position)
             }
         }
         listView.adapter = adapter

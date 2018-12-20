@@ -6,11 +6,10 @@ import androidx.lifecycle.ViewModel
 /**
  * Created by $USER_NAME on 2018/12/8.
  */
-class NameViewModel : ViewModel() {
+class ValueViewModel : ViewModel() {
 
-    // Create a LiveData with a String
-    val currentName: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    val mValue: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
     }
 
     // Rest of the ViewModel...

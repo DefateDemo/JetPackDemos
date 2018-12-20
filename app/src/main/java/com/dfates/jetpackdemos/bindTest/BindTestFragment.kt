@@ -10,14 +10,14 @@ import com.dfates.jetpackdemos.common.bind.BindParam
 import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.bind.BindViewModel
 import com.dfates.jetpackdemos.room.entity.User
-import com.dfates.jetpackdemos.viewModel.NameViewModel
+import com.dfates.jetpackdemos.viewModel.ValueViewModel
 
 //绑定时间小米4 8ms
 class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
 
     //绑定ViewModel
     @BindViewModel
-    private lateinit var mModel: NameViewModel  //根据类型匹配
+    private lateinit var mModel: ValueViewModel  //根据类型匹配
 
     //绑定视图
     @BindView(R.id.tv_user)
@@ -47,19 +47,19 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
 
     override fun initData() {
         super.initData()
-        val nameObserver = Observer<String> { newName ->
+        val nameObserver = Observer<Int> { newValue ->
             // Update the UI, in this case, a TextView.
-            tvText.text = newName
+            value = newValue
+            tvText.text = value.toString()
         }
 
         // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        mModel.currentName.observe(this, nameObserver)
+        mModel.mValue.observe(this, nameObserver)
     }
 
-    @BindOnClick(R.id.btn_modify)   //绑定点击事件
+    @BindOnClick(R.id.btn_modify)   //绑定view点击事件，要求该函数必须是一个没有参数或只有一个View作为参数的函数
     fun onClick() {
-        value += 1
-        mModel.currentName.value = value.toString()
+        mModel.mValue.value = ++value
     }
 
 

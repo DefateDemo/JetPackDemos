@@ -3,7 +3,7 @@ package com.dfates.jetpackdemos.databinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dfates.jetpackdemos.R
-import com.dfates.jetpackdemos.base.BaseBindingActivity
+import com.dfates.jetpackdemos.base.databinding.BaseBindingActivity
 import com.dfates.jetpackdemos.base.adapter.BaseDataBindingRecycleViewAdapter
 import com.dfates.jetpackdemos.base.adapter.BaseDataBindingSimpleAdapter
 

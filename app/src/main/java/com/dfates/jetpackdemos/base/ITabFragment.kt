@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
 import com.dfates.jetpackdemos.R
+import com.google.android.material.tabs.TabLayout
 
 /**
  * Created by $USER_NAME on 2018/12/18.
@@ -15,7 +15,7 @@ import com.dfates.jetpackdemos.R
 
 interface ITabFragment {
 
-    val pages: List<Pair<String, BaseFragment>>
+    val pages: List<Pair<String, Fragment>>
 
     fun initTab(context: Context, tabLayout: TabLayout, viewPager: ViewPager, fm: FragmentManager) {
 

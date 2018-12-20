@@ -1,7 +1,8 @@
-package com.dfates.jetpackdemos.base
+package com.dfates.jetpackdemos.base.databinding
 
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.dfates.jetpackdemos.base.BaseActivity
 
 /**
  * Created by $USER_NAME on 2018/12/8.

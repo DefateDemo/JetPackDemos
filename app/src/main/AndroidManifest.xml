@@ -35,6 +35,7 @@
         <activity android:name=".navigation.NavigationActivity" />
         <activity android:name=".lifecycle.LifecycleActivity" />
         <activity android:name=".bindTest.BindTestActivity" />
+        <activity android:name=".viewModel.ViewModelActivity"/>
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import com.dfates.jetpackdemos.common.gotoActivity
 import com.dfates.jetpackdemos.common.snackbarShow
 import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
 import com.dfates.jetpackdemos.room.entity.User
+import com.dfates.jetpackdemos.viewModel.ViewModelActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -117,7 +118,8 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
                 navController.navigate(R.id.roomFragment)
             }
             R.id.viewModel -> {
-                navController.navigate(R.id.viewModelFragment)
+                gotoActivity(ViewModelActivity::class.java)
+//                navController.navigate(R.id.viewModelFragment)
             }
             R.id.workManager -> {
                 snackbarShow("Not Found Impl")
