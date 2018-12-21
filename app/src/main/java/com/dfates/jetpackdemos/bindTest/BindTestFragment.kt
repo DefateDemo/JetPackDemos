@@ -16,7 +16,7 @@ import com.dfates.jetpackdemos.viewModel.ValueViewModel
 class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
 
     //绑定ViewModel
-    @BindViewModel
+    @BindViewModel(true)
     private lateinit var mModel: ValueViewModel  //根据类型匹配
 
     //绑定视图
@@ -42,7 +42,7 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
         super.initView()
         tvStr.text = string
         tvUser.text = user.toString()
-        tvText.text = value.toString()
+//        tvText.text = value.toString()
     }
 
     override fun initData() {
