@@ -89,14 +89,6 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
                 snackbarShow("Not Found Impl")
             }
             //Architecture
-            R.id.bind_test -> {
-                val bundle = Bundle()
-                bundle.putString("value_string", "hello")
-                bundle.putInt("value_int", 11)
-                bundle.putSerializable("value_user", User(null,10,"1234"))
-//                gotoActivity(BindTestActivity::class.java,bundle)
-                navController.navigate(R.id.bindTestFragment, bundle)
-            }
             R.id.data_binding -> {
                 navController.navigate(R.id.dataBindingFragment)
             }
@@ -159,6 +151,17 @@ class MainActivity : BaseActivity(R.layout.activity_main), NavigationView.OnNavi
 
             R.id.retrofit -> {
                 navController.navigate(R.id.retrofitFragment)
+            }
+            R.id.bind_test -> {
+                val bundle = Bundle()
+                bundle.putString("value_string", "hello")
+                bundle.putInt("value_int", 11)
+                bundle.putSerializable("value_user", User(null, 10, "1234"))
+//                gotoActivity(BindTestActivity::class.java,bundle)
+                navController.navigate(R.id.bindTestFragment, bundle)
+            }
+            R.id.proxy_test -> {
+                navController.navigate(R.id.proxyTestFragment)
             }
         }
 

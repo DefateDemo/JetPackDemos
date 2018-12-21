@@ -112,4 +112,10 @@
         android:label="fragment_retrofit"
         tools:layout="@layout/fragment_retrofit" />
 
+    <fragment
+        android:id="@+id/proxyTestFragment"
+        android:name="com.dfates.jetpackdemos.proxy.ProxyTestFragment"
+        android:label="fragment_proxy_test"
+        tools:layout="@layout/fragment_proxy_test" />
+
 </navigation>

@@ -29,10 +29,6 @@
     <item android:title="Architecture">
         <menu>
             <item
-                android:id="@+id/bind_test"
-                android:icon="@drawable/ic_menu_send"
-                android:title="BindTest" />
-            <item
                 android:id="@+id/data_binding"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Data Binding" />
@@ -124,6 +120,19 @@
                 android:id="@+id/retrofit"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="Retrofit" />
+        </menu>
+    </item>
+
+    <item android:title="Test">
+        <menu>
+            <item
+                android:id="@+id/bind_test"
+                android:icon="@drawable/ic_menu_send"
+                android:title="BindTest" />
+            <item
+                android:id="@+id/proxy_test"
+                android:icon="@drawable/ic_menu_send"
+                android:title="ProxyTest" />
         </menu>
     </item>
 
