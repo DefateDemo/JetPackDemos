@@ -13,7 +13,7 @@ import com.dfates.jetpackdemos.common.bind.BindViewModel
 class ViewModelFragment : BaseFragment(R.layout.fragment_view_model) {
 
     //绑定ViewModel
-    @BindViewModel(true)    //获取父类的ViewModel
+    @BindViewModel(true)    //获取Activity的ViewModel
     private lateinit var mModel: ValueViewModel
 
     //绑定视图
