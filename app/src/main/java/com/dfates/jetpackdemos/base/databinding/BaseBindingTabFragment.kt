@@ -13,9 +13,9 @@ import com.google.android.material.tabs.TabLayout
 abstract class BaseBindingTabFragment<VB : ViewDataBinding>(layoutId: Int) : BaseBindingFragment<VB>(layoutId), ITabFragment {
 
     @BindView(R.id.tab_titles)
-    lateinit var tabLayout: TabLayout
+    protected open lateinit var tabLayout: TabLayout
     @BindView(R.id.vp_content)
-    lateinit var viewPager: ViewPager
+    protected open lateinit var viewPager: ViewPager
 
     override fun initView() {
         super.initView()

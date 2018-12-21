@@ -8,7 +8,7 @@ import java.util.*
 
 class ViewModelActivity : BaseBindingTabActivity<ActivityViewModelBinding>(R.layout.activity_view_model) {
 
-    override val pages: List<Pair<String, Fragment>>by lazy {
+    override val pages: List<Pair<String, Fragment>> by lazy {
         Arrays.asList("TAB1" to ViewModelFragment(), "TAB2" to ViewModelFragment(), "TAB3" to ViewModelFragment())
     }
 }

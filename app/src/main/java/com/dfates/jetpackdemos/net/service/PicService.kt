@@ -1,5 +1,6 @@
 package com.dfates.jetpackdemos.net.service
 
+import com.dfates.jetpackdemos.net.api.ApiClient
 import com.dfates.jetpackdemos.net.data.Repo
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -10,4 +11,5 @@ interface PicService {
     @GET("users/{user}/repos")
     fun listRepos(@Path("user") user: String): Observable<List<Repo>> //每个方法的返回值即一个Observable
 }
+
 

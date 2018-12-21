@@ -42,7 +42,7 @@ class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
         super.initView()
         tvStr.text = string
         tvUser.text = user.toString()
-//        tvText.text = value.toString()
+        tvText.text = value.toString()
     }
 
     override fun initData() {

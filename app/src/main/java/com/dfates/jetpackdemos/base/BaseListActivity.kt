@@ -15,14 +15,14 @@ import com.dfates.jetpackdemos.common.bind.BindView
 abstract class BaseListActivity<M>(layoutId: Int, val itemLayoutId: Int) : BaseActivity(layoutId), AdapterView.OnItemClickListener {
 
     @BindView(R.id.list_view)
-    protected lateinit var listView: ListView
+    protected open lateinit var listView: ListView
 
     @BindView(R.id.empty_view)
-    protected lateinit var emptyView: View
+    protected open lateinit var emptyView: View
 
-    protected var adapter: CommonAdapter<M>? = null
+    protected open var adapter: CommonAdapter<M>? = null
 
-    protected var mDatas: List<M?>? = null
+    protected open var mDatas: List<M?>? = null
         set(value) {
             field = value
             adapter?.update(value)

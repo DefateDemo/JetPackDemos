@@ -1,6 +1,8 @@
 package com.dfates.jetpackdemos.base
 
 import androidx.viewpager.widget.ViewPager
+import com.dfates.jetpackdemos.R
+import com.dfates.jetpackdemos.common.bind.BindView
 import com.google.android.material.tabs.TabLayout
 
 /**
@@ -8,8 +10,10 @@ import com.google.android.material.tabs.TabLayout
  */
 abstract class BaseTabFragment(layoutId: Int) : BaseFragment(layoutId), ITabFragment {
 
-    lateinit var tabLayout: TabLayout
-    lateinit var viewPager: ViewPager
+    @BindView(R.id.tab_titles)
+    protected open lateinit var tabLayout: TabLayout
+    @BindView(R.id.vp_content)
+    protected open lateinit var viewPager: ViewPager
 
     override fun initView() {
         super.initView()

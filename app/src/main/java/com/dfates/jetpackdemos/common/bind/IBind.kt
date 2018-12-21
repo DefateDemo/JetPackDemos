@@ -159,7 +159,16 @@ interface IBind {
         var tempClazz: Class<*>? = this.javaClass
         val exceptClasss = arrayOf(Any::class.java, Fragment::class.java, Activity::class.java)
         while (tempClazz != null && tempClazz !in exceptClasss) {
-            fields.addAll(tempClazz.declaredFields)
+            //过滤覆盖的属性
+            val filterFields = tempClazz.declaredFields.filter { field ->
+                fields.forEach { it ->
+                    if (it.name == field.name && it.type == field.type) {
+                        return@filter false
+                    }
+                }
+                true
+            }
+            fields.addAll(filterFields)
             tempClazz = tempClazz.superclass
         }
         return fields
@@ -171,7 +180,16 @@ interface IBind {
         var tempClazz: Class<*>? = this.javaClass
         val exceptClasss = arrayOf(Any::class.java, Fragment::class.java, Activity::class.java)
         while (tempClazz != null && tempClazz !in exceptClasss) {
-            methods.addAll(tempClazz.declaredMethods)
+            //过滤覆盖的方法
+            val filterMethods = tempClazz.declaredMethods.filter { method ->
+                methods.forEach { it ->
+                    if (it.name == method.name && it.returnType == method.returnType && it.parameterTypes!!.contentEquals(method.parameterTypes)) {
+                        return@filter false
+                    }
+                }
+                true
+            }
+            methods.addAll(filterMethods)
             tempClazz = tempClazz.superclass
         }
         return methods

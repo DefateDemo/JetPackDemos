@@ -14,7 +14,7 @@ import com.dfates.jetpackdemos.viewModel.ValueViewModel
 class BindTestActivity : BaseActivity(R.layout.activity_bind_test) {
 
     //绑定ViewModel
-    @BindViewModel
+    @BindViewModel(true)
     private lateinit var mModel: ValueViewModel  //根据类型匹配
 
     //绑定视图
