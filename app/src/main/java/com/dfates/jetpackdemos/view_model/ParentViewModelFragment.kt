@@ -1,13 +1,10 @@
-package com.dfates.jetpackdemos.viewModel
+package com.dfates.jetpackdemos.view_model
 
 
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.databinding.BaseBindingTabFragment
-import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.databinding.FragmentParentViewModelBinding
-import com.google.android.material.tabs.TabLayout
 import java.util.*
 
 class ParentViewModelFragment : BaseBindingTabFragment<FragmentParentViewModelBinding>(R.layout.fragment_parent_view_model) {

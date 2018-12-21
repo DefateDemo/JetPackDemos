@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.viewModel
+package com.dfates.jetpackdemos.view_model
 
 import androidx.fragment.app.Fragment
 import com.dfates.jetpackdemos.R

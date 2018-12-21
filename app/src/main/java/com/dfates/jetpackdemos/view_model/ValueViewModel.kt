@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.viewModel
+package com.dfates.jetpackdemos.view_model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

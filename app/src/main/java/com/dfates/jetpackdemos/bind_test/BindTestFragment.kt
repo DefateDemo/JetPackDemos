@@ -1,17 +1,19 @@
-package com.dfates.jetpackdemos.bindTest
+package com.dfates.jetpackdemos.bind_test
+
 
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.dfates.jetpackdemos.R
-import com.dfates.jetpackdemos.base.BaseActivity
+import com.dfates.jetpackdemos.base.BaseFragment
 import com.dfates.jetpackdemos.common.bind.BindOnClick
 import com.dfates.jetpackdemos.common.bind.BindParam
 import com.dfates.jetpackdemos.common.bind.BindView
 import com.dfates.jetpackdemos.common.bind.BindViewModel
 import com.dfates.jetpackdemos.room.entity.User
-import com.dfates.jetpackdemos.viewModel.ValueViewModel
+import com.dfates.jetpackdemos.view_model.ValueViewModel
 
-class BindTestActivity : BaseActivity(R.layout.activity_bind_test) {
+//绑定时间小米4 8ms
+class BindTestFragment : BaseFragment(R.layout.fragment_bind_test) {
 
     //绑定ViewModel
     @BindViewModel(true)
@@ -59,5 +61,6 @@ class BindTestActivity : BaseActivity(R.layout.activity_bind_test) {
     fun onClick() {
         mModel.mValue.value = ++value
     }
+
 
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.dfates.jetpackdemos.common.bind.BIND_ALL
 import com.dfates.jetpackdemos.common.bind.IBind
@@ -20,7 +19,9 @@ abstract class BaseFragment(val layoutId: Int) : Fragment(), IViewInit, IBind {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val before = System.currentTimeMillis()
         initBind(BIND_ALL)  //初始化绑定
+        println(System.currentTimeMillis() - before)
         initAll()   //调用initView,initListener,initData方法
     }
 }

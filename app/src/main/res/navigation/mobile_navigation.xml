@@ -43,28 +43,28 @@
 
     <fragment
         android:id="@+id/bindTestFragment"
-        android:name="com.dfates.jetpackdemos.bindTest.BindTestFragment"
+        android:name="com.dfates.jetpackdemos.bind_test.BindTestFragment"
         android:label="bindTestFragment"
         tools:layout="@layout/fragment_bind_test" >
     </fragment>
 
     <fragment
         android:id="@+id/liveDataFragment"
-        android:name="com.dfates.jetpackdemos.liveData.LiveDataFragment"
+        android:name="com.dfates.jetpackdemos.live_data.LiveDataFragment"
         android:label="liveDataFragment"
         tools:layout="@layout/fragment_live_data" >
     </fragment>
 
     <fragment
         android:id="@+id/parentViewModelFragment"
-        android:name="com.dfates.jetpackdemos.viewModel.ParentViewModelFragment"
+        android:name="com.dfates.jetpackdemos.view_model.ParentViewModelFragment"
         android:label="parentViewModelFragment"
         tools:layout="@layout/fragment_parent_view_model" >
     </fragment>
 
     <fragment
         android:id="@+id/viewModelFragment"
-        android:name="com.dfates.jetpackdemos.viewModel.ViewModelFragment"
+        android:name="com.dfates.jetpackdemos.view_model.ViewModelFragment"
         android:label="viewModelFragment"
         tools:layout="@layout/fragment_view_model" >
     </fragment>

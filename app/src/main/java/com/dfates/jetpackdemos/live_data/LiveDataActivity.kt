@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.liveData
+package com.dfates.jetpackdemos.live_data
 
 import android.widget.TextView
 import androidx.lifecycle.Observer

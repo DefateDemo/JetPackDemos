@@ -1,4 +1,4 @@
-package com.dfates.jetpackdemos.viewModel
+package com.dfates.jetpackdemos.view_model
 
 
 import android.widget.Button

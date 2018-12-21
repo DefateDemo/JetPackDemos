@@ -10,12 +10,8 @@ import androidx.navigation.Navigation
 import com.dfates.jetpackdemos.base.BaseActivity
 import com.dfates.jetpackdemos.base.Priority
 import com.dfates.jetpackdemos.base.RunPriority
-import com.dfates.jetpackdemos.bindTest.BindTestActivity
-import com.dfates.jetpackdemos.common.gotoActivity
 import com.dfates.jetpackdemos.common.snackbarShow
-import com.dfates.jetpackdemos.lifecycle.LifecycleActivity
 import com.dfates.jetpackdemos.room.entity.User
-import com.dfates.jetpackdemos.viewModel.ViewModelActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
