@@ -3,7 +3,6 @@ package com.dfates.jetpackdemos.proxy
 import com.dfates.jetpackdemos.R
 import com.dfates.jetpackdemos.base.BaseFragment
 import com.dfates.jetpackdemos.common.ifNotNull
-import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
@@ -45,7 +44,7 @@ inline fun <reified T> Any.createProxy(): T {
 
         return@newProxyInstance when (method?.returnType) {
             Unit::class.java -> Unit
-            String::class.java -> "result = " + statement
+            String::class.java -> "result = $statement"
             else -> {
                 null
             }
